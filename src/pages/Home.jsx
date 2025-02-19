@@ -120,6 +120,9 @@ const Home = () => {
           <p className="text-xl text-gray-300 mb-10 leading-relaxed">
             Soluções de iluminação inovadoras que combinam design contemporâneo
             com eficiência energética para criar ambientes únicos.
+            <span className="text-lg text-gray-400 mb-10 leading-relaxed">
+              Há mais de 10 anos no mercado luminotécnico.
+            </span>
           </p>
 
           {/* Animated buttons */}

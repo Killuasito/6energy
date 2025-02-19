@@ -13,7 +13,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
 
-  // Banco de dados de produtos
+  // Banco de dados de produtos com IDs como strings
   const productsDatabase = {
     1: {
       name: "Luminária LED Moderna",

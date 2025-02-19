@@ -37,8 +37,7 @@ function App() {
                 <Stats />
                 <About />
                 <Projects />
-                <Products />{" "}
-                {/* Changed back to Products instead of ProductPage */}
+                <Products />
                 <Testimonials />
                 <Contact />
               </>

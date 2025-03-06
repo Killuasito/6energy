@@ -66,34 +66,34 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="relative group"
+              onClick={() => handleViewProject(project.id)}
+              className="relative cursor-pointer rounded-xl overflow-hidden"
             >
-              <div className="relative overflow-hidden rounded-xl aspect-[4/5]">
+              <div className="relative overflow-hidden aspect-[4/5]">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                {/* Semi-transparent overlay always visible */}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"></div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                {/* Content always visible at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
                   <span className="inline-block px-2 py-1 text-xs font-medium bg-yellow-400 text-gray-900 rounded-full mb-3">
                     {project.category}
                   </span>
                   <h3 className="text-xl font-bold text-white mb-2">
                     {project.title}
                   </h3>
-                  <p className="text-gray-300 text-sm mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-gray-300 text-sm mb-3">
                     {project.description}
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="text-yellow-400 text-sm font-medium">
                       {project.stats}
                     </span>
-                    <button
-                      onClick={() => handleViewProject(project.id)}
-                      className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-yellow-400"
-                    >
+                    <button className="text-white hover:text-yellow-400 transition-colors">
                       Ver projeto →
                     </button>
                   </div>

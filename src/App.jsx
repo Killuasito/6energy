@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -21,8 +22,17 @@ import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
 import ScrollToTop from "./components/ScrollToTop";
 import ProjectDetail from "./pages/ProjectDetail";
+import BackToTop from "./components/BackToTop";
+import PageTransition from "./components/PageTransition";
 
 function App() {
+  // Set default theme
+  useEffect(() => {
+    // Check if user has a preferred theme stored
+    const storedTheme = localStorage.getItem("theme") || "dark";
+    document.documentElement.className = storedTheme;
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />
@@ -32,7 +42,7 @@ function App() {
           <Route
             path="/"
             element={
-              <>
+              <PageTransition>
                 <Home />
                 <Stats />
                 <About />
@@ -40,19 +50,69 @@ function App() {
                 <Products />
                 <Testimonials />
                 <Contact />
-              </>
+              </PageTransition>
             }
           />
-          <Route path="/sobre" element={<AboutPage />} />
-          <Route path="/projetos" element={<ProjectsPage />} />
-          <Route path="/projetos/:id" element={<ProjectDetail />} />
-          <Route path="/produtos" element={<ProductPage />} />
-          <Route path="/produtos/:id" element={<ProductDetail />} />
-          <Route path="/contato" element={<ContactPage />} />
-          <Route path="/orcamento" element={<QuotePage />} />
+          <Route
+            path="/sobre"
+            element={
+              <PageTransition>
+                <AboutPage />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/projetos"
+            element={
+              <PageTransition>
+                <ProjectsPage />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/projetos/:id"
+            element={
+              <PageTransition>
+                <ProjectDetail />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/produtos"
+            element={
+              <PageTransition>
+                <ProductPage />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/produtos/:id"
+            element={
+              <PageTransition>
+                <ProductDetail />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/contato"
+            element={
+              <PageTransition>
+                <ContactPage />
+              </PageTransition>
+            }
+          />
+          <Route
+            path="/orcamento"
+            element={
+              <PageTransition>
+                <QuotePage />
+              </PageTransition>
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Footer />
+        <BackToTop />
       </div>
     </Router>
   );

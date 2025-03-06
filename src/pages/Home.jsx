@@ -67,45 +67,18 @@ const Home = () => {
         }}
       />
 
-      <div className="container mx-auto px-4 pt-56 pb-20 relative z-20">
+      <div className="container mx-auto px-4 pt-32 md:pt-56 pb-20 relative z-20">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={textVariants}
-          className="text-center max-w-4xl mx-auto"
+          className="text-center max-w-4xl mx-auto px-4"
         >
-          {/* Snake animation line with slower speed */}
-          <div className="relative h-1 mb-8 w-full mx-auto overflow-hidden">
-            <motion.div
-              animate={{
-                x: ["-100%", "100%"],
-                scaleX: [1, 0.7, 1],
-              }}
-              transition={{
-                duration: 3.5, // Increased from 2 to 3.5
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"
-            />
-            <motion.div
-              animate={{
-                x: ["-100%", "100%"],
-                scaleX: [1, 0.7, 1],
-              }}
-              transition={{
-                duration: 10, // Increased from 2 to 3.5
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 10, // Adjusted delay to half of duration for smoother transition
-              }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"
-            />
-          </div>
+          {/* Removing the snake animation line */}
 
           <h1
-            className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent 
-            bg-gradient-to-r from-amber-500 to-amber-300 relative"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent 
+            bg-gradient-to-r from-amber-500 to-amber-300 relative leading-tight"
           >
             Transforme Seus Espaços com Iluminação Moderna
             {/* Decorative elements */}
@@ -117,20 +90,19 @@ const Home = () => {
             </span>
           </h1>
 
-          <p className="text-xl text-gray-300 mb-10 leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-10 leading-relaxed">
             Soluções de iluminação inovadoras que combinam design contemporâneo
             com eficiência energética para criar ambientes únicos.
           </p>
 
           {/* Animated buttons */}
-          <div className="flex gap-4 justify-center mt-12">
+          <div className="flex flex-col md:flex-row gap-4 justify-center mt-8 px-4">
             <motion.a
               href="#produtos"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-amber-400 text-gray-900 rounded-full 
-                font-semibold hover:bg-amber-300 transition-all duration-300 
-                relative group overflow-hidden"
+              className="w-full md:w-auto px-8 py-4 bg-amber-400 text-gray-900 rounded-full 
+                font-semibold hover:bg-amber-300 transition-all duration-300 text-center"
             >
               <span className="relative z-10">Explorar Produtos</span>
               <div
@@ -143,9 +115,9 @@ const Home = () => {
               href="#contato"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 border-2 border-amber-400 text-amber-400 
+              className="w-full md:w-auto px-8 py-4 border-2 border-amber-400 text-amber-400 
                 rounded-full font-semibold hover:bg-yellow-400/10 
-                transition-all duration-300"
+                transition-all duration-300 text-center"
             >
               Fale Conosco
             </motion.a>
@@ -153,7 +125,7 @@ const Home = () => {
         </motion.div>
 
         {/* Features section with enhanced animations */}
-        <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-20 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-4">
           {[
             {
               title: "Design Exclusivo",
@@ -204,17 +176,7 @@ const Home = () => {
         </div>
 
         {/* Scroll indicator */}
-        <motion.div
-          animate={{
-            y: [0, 10, 0],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
+        <motion.div className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <div className="w-6 h-10 border-2 border-amber-400/50 rounded-full flex justify-center">
             <div className="w-1 h-2 bg-amber-400 rounded-full mt-2" />
           </div>

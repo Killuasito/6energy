@@ -42,8 +42,8 @@ const Header = () => {
       className={`fixed w-full top-0 z-50 transition-all duration-500 ease-in-out
         ${
           isScrolled
-            ? "py-4 bg-gray-900/90 backdrop-blur-sm"
-            : "py-4 bg-gray-900"
+            ? "py-2 md:py-4 bg-gray-900/95 backdrop-blur-sm"
+            : "py-3 md:py-4 bg-gray-900"
         }`}
     >
       <div className="container mx-auto px-4">
@@ -101,21 +101,26 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation with improved styling */}
         <div
-          className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-            isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          }`}
+          className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden
+            ${
+              isMobileMenuOpen
+                ? "max-h-[400px] opacity-100 bg-gray-900/95 backdrop-blur-sm"
+                : "max-h-0 opacity-0"
+            }`}
         >
           <nav className="py-4">
-            <ul className="space-y-4">
+            <ul className="space-y-4 px-2">
+              {" "}
+              {/* Added padding */}
               {navItems.map((item) => (
                 <li key={item.name}>
                   <Link
                     to={item.path}
                     onClick={handleNavClick}
                     className="block text-gray-100 hover:text-yellow-400 transition-colors
-                      text-sm uppercase tracking-wider font-medium py-2"
+                      text-base uppercase tracking-wider font-medium py-3 text-center" // Increased text size and padding
                   >
                     {item.name}
                   </Link>

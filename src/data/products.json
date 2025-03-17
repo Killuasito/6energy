@@ -1,0 +1,83 @@
+{
+  "featuredProducts": [
+    {
+      "id": 1,
+      "name": "Perfil Antares Arandela",
+      "category": "Perfil",
+      "image": "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO-PERFIL-ANTARES-PRETO.png?resize=2048%2C1227&ssl=1",
+      "description": "Design contemporâneo com tecnologia LED avançada",
+      "longDescription": "Esta luminária combina tecnologia de ponta com design sofisticado. Perfeita para ambientes modernos, oferece iluminação ajustável e economia de energia excepcional.",
+      "rating": 4.8,
+      "reviewCount": 124,
+      "specs": [
+        { "name": "Potência", "value": "30.2W" },
+        { "name": "Temperatura de Cor", "value": "3000K - 4000K" },
+        { "name": "Proteção", "value": "IP20" },
+        { "name": "Vida Útil", "value": "50.000 horas" },
+        { "name": "Garantia", "value": "3 anos" }
+      ],
+      "features": [
+        " Luminária linear direta e indireta.",
+        " Corpo fabricado em perfil de alumínio.",
+        " Difusor em acrílico translúcido.",
+        "Acabamento com pintura microtextura na cor branca."
+      ],
+      "images": [
+        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO-PERFIL-ANTARES-PRETO.png?resize=2048%2C1227&ssl=1"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Piazza SQ Embutir",
+      "category": "Comercial",
+      "image": "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2023/12/FOTO_PIAZZA_STANDARD_SQ_ALTA.png?resize=2048%2C1227&ssl=1",
+      "description": "Acabamento refinado para ambientes sofisticados",
+      "longDescription": "Spot embutido com tecnologia LED integrada, ideal para criar pontos de luz direcionados. Design discreto que se integra perfeitamente a qualquer ambiente.",
+      "rating": 4.6,
+      "reviewCount": 89,
+      "specs": [
+        { "name": "Potência", "value": "43,5W" },
+        { "name": "Temperatura de Cor", "value": "3000K" },
+        { "name": "Proteção", "value": "IP20" },
+        { "name": "Vida Útil", "value": "35.000 horas" },
+        { "name": "Garantia", "value": "3 anos" }
+      ],
+      "features": [
+        "Garantia de 2 anos.",
+        "Luminária comercial de embutir.",
+        "Corpo fabricado em chapa de aço.",
+        "Difusor em acrílico translúcido 75%.",
+        "Acabamento com pintura microtexturizada na cor branca."
+      ],
+      "images": [
+        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2023/12/FOTO_PIAZZA_STANDARD_SQ_ALTA.png?resize=2048%2C1227&ssl=1"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Spot Alba",
+      "category": "Decorativa",
+      "image": "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2023/09/FOTO_SPOT_ALBA-PRETO-1-png.webp?resize=2048%2C1227&ssl=1",
+      "description": "Controle por aplicativo, milhões de cores",
+      "longDescription": "Fita LED RGB+W com controle via smartphone. Crie ambientes personalizados com milhões de cores e automações inteligentes.",
+      "rating": 4.9,
+      "reviewCount": 156,
+      "specs": [
+        { "name": "Potência", "value": "5.5W" },
+        { "name": "Temperatura de Cor", "value": "3000K" },
+        { "name": "Proteção", "value": "IP20" },
+        { "name": "Vida Útil", "value": "25.000 horas" }
+      ],
+      "features": [
+        "Garantia de 1 anos.",
+        "Luminária decorativa para trilho.",
+        "Corpo fabricado em alumínio.",
+        "Refletor em alumínio frisado.",
+        "Acabamento com pintura microtextura."
+      ],
+      "images": [
+        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2023/09/FOTO_SPOT_ALBA-PRETO-1-png.webp?resize=2048%2C1227&ssl=1"
+      ]
+    }
+  ]
+}

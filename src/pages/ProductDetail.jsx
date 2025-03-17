@@ -1,115 +1,128 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   HiOutlineShoppingCart,
   HiStar,
   HiOutlineStar,
   HiArrowLeft,
+  HiOutlineDownload,
+  HiOutlineDocumentText,
+  HiOutlineDocumentReport,
 } from "react-icons/hi";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import productsData from "../data/products.json";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Banco de dados de produtos com IDs como strings
-  const productsDatabase = {
-    1: {
-      name: "Luminária LED Moderna",
-      price: "R$ 299,90",
-      category: "Luminárias",
-      rating: 4.8,
-      reviewCount: 124,
-      description:
-        "Design contemporâneo com tecnologia LED avançada para iluminação eficiente e elegante.",
-      longDescription:
-        "Esta luminária combina tecnologia de ponta com design sofisticado. Perfeita para ambientes modernos, oferece iluminação ajustável e economia de energia excepcional.",
-      images: [
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2025/01/6N102951-EBB40-logo-scaled.webp",
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO_SPOT_POINT-PRETO.png",
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO-IRON-5035-PRETO-1.png",
-      ],
-      specs: [
-        { name: "Potência", value: "12W" },
-        { name: "Voltagem", value: "Bivolt" },
-        { name: "Temperatura de Cor", value: "3000K" },
-        { name: "Proteção", value: "IP20" },
-        { name: "Vida Útil", value: "25.000 horas" },
-        { name: "Garantia", value: "2 anos" },
-      ],
-      features: [
-        "Controle de intensidade",
-        "Instalação simplificada",
-        "Baixo consumo de energia",
-        "Material anti-corrosão",
-        "Distribuição uniforme de luz",
-      ],
-    },
-    2: {
-      name: "Spot Embutido Premium",
-      price: "R$ 189,90",
-      category: "Spots",
-      rating: 4.6,
-      reviewCount: 89,
-      description: "Acabamento refinado para ambientes sofisticados",
-      longDescription:
-        "Spot embutido com tecnologia LED integrada, ideal para criar pontos de luz direcionados. Design discreto que se integra perfeitamente a qualquer ambiente.",
-      images: [
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO_SPOT_POINT-PRETO.png",
-        // Adicione mais imagens
-      ],
-      specs: [
-        { name: "Potência", value: "7W" },
-        { name: "Voltagem", value: "Bivolt" },
-        { name: "Temperatura de Cor", value: "4000K" },
-        { name: "Proteção", value: "IP20" },
-        { name: "Vida Útil", value: "20.000 horas" },
-        { name: "Garantia", value: "2 anos" },
-      ],
-      features: [
-        "Facho direcionável",
-        "Instalação embutida",
-        "Alta eficiência luminosa",
-        "Acabamento premium",
-        "Design minimalista",
-      ],
-    },
-    3: {
-      name: "Fita LED Inteligente",
-      price: "R$ 249,90",
-      category: "LED",
-      rating: 4.9,
-      reviewCount: 156,
-      description: "Controle por aplicativo, milhões de cores",
-      longDescription:
-        "Fita LED RGB+W com controle via smartphone. Crie ambientes personalizados com milhões de cores e automações inteligentes.",
-      images: [
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO-IRON-5035-PRETO-1.png",
-        // Adicione mais imagens
-      ],
-      specs: [
-        { name: "Potência", value: "14W/m" },
-        { name: "Voltagem", value: "12V" },
-        { name: "Cores", value: "RGB+W" },
-        { name: "Proteção", value: "IP65" },
-        { name: "Vida Útil", value: "30.000 horas" },
-        { name: "Conectividade", value: "WiFi/Bluetooth" },
-      ],
-      features: [
-        "Controle via aplicativo",
-        "16 milhões de cores",
-        "Resistente à água",
-        "Automações programáveis",
-        "Música sincronizada",
-      ],
-    },
-  };
+  useEffect(() => {
+    // Simulate fetching data
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
 
-  // Buscar produto pelo ID
-  const product = productsDatabase[id];
+        // Find the product in the JSON data
+        const foundProduct = productsData.featuredProducts.find(
+          (item) => item.id === parseInt(id)
+        );
 
-  // Redirecionar para a página de produtos se o ID não existir
+        if (foundProduct) {
+          // Process images correctly
+          let productImages = [];
+
+          // If images array exists and has items, use it
+          if (foundProduct.images && foundProduct.images.length > 0) {
+            productImages = foundProduct.images;
+          }
+          // Otherwise use the single image
+          else if (foundProduct.image) {
+            productImages = [foundProduct.image];
+          }
+          // Fallback
+          else {
+            productImages = ["https://via.placeholder.com/400?text=No+Image"];
+          }
+
+          // Generate file names for downloads based on product name
+          const fileBaseName = foundProduct.name
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") // Remove accents
+            .replace(/\s+/g, "-") // Replace spaces with hyphens
+            .replace(/[^a-z0-9-]/g, ""); // Remove special characters
+
+          // Enhance the product with additional details
+          const enhancedProduct = {
+            ...foundProduct,
+            rating: foundProduct.rating || 4.7,
+            reviewCount: foundProduct.reviewCount || 100,
+            longDescription:
+              foundProduct.longDescription || foundProduct.description,
+            images: productImages,
+            specs: foundProduct.specs || [
+              { name: "Potência", value: "12W" },
+              { name: "Voltagem", value: "Bivolt" },
+              { name: "Temperatura de Cor", value: "3000K" },
+              { name: "Proteção", value: "IP20" },
+              { name: "Vida Útil", value: "25.000 horas" },
+              { name: "Garantia", value: "2 anos" },
+            ],
+            features: foundProduct.features || [
+              "Controle de intensidade",
+              "Instalação simplificada",
+              "Baixo consumo de energia",
+              "Material anti-corrosão",
+              "Distribuição uniforme de luz",
+            ],
+            downloads: [
+              {
+                name: "Arquivo LDT",
+                description: "Dados fotométricos para projetos luminotécnicos",
+                icon: <HiOutlineDocumentReport className="w-5 h-5" />,
+                url: `/downloads/${fileBaseName}.LDT`,
+                fileName: `${foundProduct.name}.LDT`, // Changed from IES PDF to LDT
+              },
+              {
+                name: "Ficha Técnica",
+                description: "Especificações completas do produto",
+                icon: <HiOutlineDocumentText className="w-5 h-5" />,
+                url: `/downloads/${fileBaseName}-ficha-tecnica.pdf`,
+                fileName: `${foundProduct.name} - Ficha Técnica.pdf`, // Display name for download
+              },
+            ],
+          };
+          setProduct(enhancedProduct);
+          console.log("Product images:", productImages); // Debugging
+        } else {
+          // Product not found
+          navigate("/produtos");
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        navigate("/produtos");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id, navigate]);
+
+  if (loading) {
+    return (
+      <section className="py-32 bg-gray-900 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin h-12 w-12 border-4 border-yellow-400 border-t-transparent rounded-full mb-4"></div>
+          <p className="text-gray-300">Carregando produto...</p>
+        </div>
+      </section>
+    );
+  }
+
   if (!product) {
     navigate("/produtos");
     return null;
@@ -128,38 +141,57 @@ const ProductDetail = () => {
         </Link>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Galeria de Imagens */}
+          {/* Galeria de Imagens - Modified for better image display */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-4"
           >
-            <div className="aspect-square rounded-xl overflow-hidden bg-gray-800">
-              <img
-                src={product.images[selectedImage]}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="grid grid-cols-4 gap-4">
-              {product.images.map((image, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`aspect-square rounded-lg overflow-hidden border-2 transition-colors ${
-                    selectedImage === index
-                      ? "border-yellow-400"
-                      : "border-transparent"
-                  }`}
-                >
+            <div className="bg-gray-800 rounded-xl overflow-hidden">
+              {product && product.images && product.images.length > 0 ? (
+                <div className="flex justify-center items-center p-4">
                   <img
-                    src={image}
-                    alt=""
-                    className="w-full h-full object-cover"
+                    src={product.images[selectedImage]}
+                    alt={product.name}
+                    className="max-w-full max-h-[400px] object-contain"
+                    onError={(e) => {
+                      console.error("Image failed to load:", e.target.src);
+                      e.target.src =
+                        "https://via.placeholder.com/400?text=Error+Loading+Image";
+                    }}
                   />
-                </button>
-              ))}
+                </div>
+              ) : (
+                <div className="w-full h-64 flex items-center justify-center text-gray-500">
+                  Imagem não disponível
+                </div>
+              )}
             </div>
+            {product && product.images && product.images.length > 1 && (
+              <div className="grid grid-cols-4 gap-4">
+                {product.images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(index)}
+                    className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-colors ${
+                      selectedImage === index
+                        ? "border-yellow-400"
+                        : "border-transparent"
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${product.name} - vista ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.src =
+                          "https://via.placeholder.com/100?text=Error";
+                      }}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </motion.div>
 
           {/* Informações do Produto */}
@@ -224,6 +256,40 @@ const ProductDetail = () => {
                 ))}
               </ul>
             </div>
+
+            {/* Downloads Section */}
+            {product.downloads && product.downloads.length > 0 && (
+              <div className="py-6 border-y border-gray-800">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  Arquivos para Download
+                </h3>
+                <div className="space-y-3">
+                  {product.downloads.map((download, index) => (
+                    <motion.a
+                      key={index}
+                      href={download.url}
+                      download={download.fileName || true} // Use custom filename if provided
+                      className="flex items-center p-3 bg-gray-800/50 hover:bg-gray-800/80 border border-gray-700/50 rounded-lg group transition-all duration-300"
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center mr-3 group-hover:bg-yellow-400/30 transition-colors">
+                        {download.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-white font-medium">
+                          {download.name}
+                        </h4>
+                        <p className="text-gray-400 text-sm">
+                          {download.description}
+                        </p>
+                      </div>
+                      <HiOutlineDownload className="w-5 h-5 text-gray-400 group-hover:text-yellow-400 transition-all transform group-hover:translate-y-0.5" />
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="flex items-center justify-between pt-6">
               <span className="text-3xl font-bold text-white">

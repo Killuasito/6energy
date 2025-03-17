@@ -5,6 +5,13 @@ import {
   HiPlus,
   HiMinus,
   HiTrash,
+  HiOutlineUser,
+  HiOutlineMail,
+  HiOutlinePhone,
+  HiOutlineOfficeBuilding,
+  HiOutlineDocumentText,
+  HiOutlineLightBulb,
+  HiOutlineCheck,
 } from "react-icons/hi";
 
 const QuotePage = () => {
@@ -17,12 +24,17 @@ const QuotePage = () => {
     projectType: "residencial",
     comments: "",
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Exemplo de produtos disponíveis
   const availableProducts = [
     { id: 1, name: "Luminária LED Moderna", price: "R$ 299,90" },
     { id: 2, name: "Spot Embutido Premium", price: "R$ 189,90" },
     { id: 3, name: "Fita LED Inteligente", price: "R$ 249,90" },
+    { id: 4, name: "Pendente Minimalista", price: "R$ 349,90" },
+    { id: 5, name: "Luminária de Mesa Design", price: "R$ 229,90" },
+    { id: 6, name: "Painel LED Ultra-fino", price: "R$ 279,90" },
   ];
 
   const handleAddItem = () => {
@@ -41,9 +53,68 @@ const QuotePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ ...formData, items });
-    // Implementar lógica de envio
+    setIsSubmitting(true);
+
+    // Simulando um envio para API
+    setTimeout(() => {
+      console.log({ ...formData, items });
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }, 1500);
   };
+
+  const projectTypes = [
+    { value: "residencial", label: "Residencial" },
+    { value: "comercial", label: "Comercial" },
+    { value: "industrial", label: "Industrial" },
+    { value: "governamental", label: "Governamental" },
+    { value: "hospitalar", label: "Hospitalar" },
+    { value: "educacional", label: "Educacional" },
+  ];
+
+  if (isSubmitted) {
+    return (
+      <section className="py-32 bg-gray-900 min-h-screen flex items-center">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-2xl mx-auto bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 text-center"
+          >
+            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <HiOutlineCheck className="text-green-500 w-12 h-12" />
+            </div>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Orçamento Solicitado com Sucesso!
+            </h2>
+            <p className="text-gray-300 mb-8">
+              Obrigado pelo seu interesse! Recebemos sua solicitação de
+              orçamento e entraremos em contato em breve através dos dados
+              fornecidos.
+            </p>
+            <div className="flex justify-center gap-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsSubmitted(false)}
+                className="px-6 py-3 bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-600 transition-all"
+              >
+                Novo Orçamento
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => (window.location.href = "/")}
+                className="px-6 py-3 bg-yellow-400 text-gray-900 rounded-lg font-medium hover:bg-yellow-300 transition-all"
+              >
+                Voltar ao Início
+              </motion.button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-32 bg-gray-900 min-h-screen">
@@ -54,199 +125,339 @@ const QuotePage = () => {
           className="max-w-4xl mx-auto"
         >
           <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-400/20 mb-4">
+              <HiOutlineClipboardList className="w-8 h-8 text-yellow-400" />
+            </div>
             <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
               Solicitar Orçamento
             </h1>
-            <p className="text-gray-300">
+            <p className="text-gray-300 max-w-2xl mx-auto">
               Preencha o formulário abaixo para receber seu orçamento
-              personalizado
+              personalizado. Nossa equipe entrará em contato com você em até 24
+              horas úteis.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Informações Pessoais */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 space-y-4">
-              <h2 className="text-xl font-semibold text-yellow-400 mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 space-y-4 shadow-lg border border-gray-700/50"
+            >
+              <h2 className="text-xl font-semibold text-yellow-400 flex items-center gap-2 mb-4">
+                <HiOutlineUser className="w-5 h-5" />
                 Informações Pessoais
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-gray-300 mb-2">
+                  <label className="block text-gray-300 mb-2 font-medium">
                     Nome Completo *
                   </label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <HiOutlineUser className="text-gray-400" />
+                    </div>
+                    <input
+                      type="text"
+                      required
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      placeholder="Seu nome completo"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-gray-300 mb-2">Email *</label>
-                  <input
-                    type="email"
-                    required
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
+                  <label className="block text-gray-300 mb-2 font-medium">
+                    Email *
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <HiOutlineMail className="text-gray-400" />
+                    </div>
+                    <input
+                      type="email"
+                      required
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      placeholder="seu.email@exemplo.com"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-gray-300 mb-2">Telefone *</label>
-                  <input
-                    type="tel"
-                    required
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
+                  <label className="block text-gray-300 mb-2 font-medium">
+                    Telefone *
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <HiOutlinePhone className="text-gray-400" />
+                    </div>
+                    <input
+                      type="tel"
+                      required
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      value={formData.phone}
+                      onChange={(e) => {
+                        // Apply phone mask (xx) xxxxx-xxxx
+                        const value = e.target.value.replace(/\D/g, "");
+                        let formattedPhone = "";
+
+                        if (value.length <= 2) {
+                          formattedPhone = value;
+                        } else if (value.length <= 7) {
+                          formattedPhone = `(${value.slice(
+                            0,
+                            2
+                          )}) ${value.slice(2)}`;
+                        } else {
+                          formattedPhone = `(${value.slice(
+                            0,
+                            2
+                          )}) ${value.slice(2, 7)}-${value.slice(7, 11)}`;
+                        }
+
+                        setFormData({ ...formData, phone: formattedPhone });
+                      }}
+                      placeholder="(xx) xxxxx-xxxx"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-gray-300 mb-2">Empresa</label>
-                  <input
-                    type="text"
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400"
-                    value={formData.company}
-                    onChange={(e) =>
-                      setFormData({ ...formData, company: e.target.value })
-                    }
-                  />
+                  <label className="block text-gray-300 mb-2 font-medium">
+                    Empresa{" "}
+                    <span className="text-gray-500 font-normal">
+                      (opcional)
+                    </span>
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <HiOutlineOfficeBuilding className="text-gray-400" />
+                    </div>
+                    <input
+                      type="text"
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      value={formData.company}
+                      onChange={(e) =>
+                        setFormData({ ...formData, company: e.target.value })
+                      }
+                      placeholder="Nome da sua empresa"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Produtos */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6">
-              <h2 className="text-xl font-semibold text-yellow-400 mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-700/50"
+            >
+              <h2 className="text-xl font-semibold text-yellow-400 flex items-center gap-2 mb-4">
+                <HiOutlineLightBulb className="w-5 h-5" />
                 Produtos Desejados
               </h2>
               <div className="space-y-4">
                 {items.map((item, index) => (
-                  <div key={index} className="flex items-center gap-4">
-                    <select
-                      className="flex-1 bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400"
-                      value={item.productId}
-                      onChange={(e) =>
-                        handleItemChange(index, "productId", e.target.value)
-                      }
-                    >
-                      <option value="">Selecione um produto</option>
-                      {availableProducts.map((product) => (
-                        <option key={product.id} value={product.id}>
-                          {product.name} - {product.price}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        className="p-2 text-gray-400 hover:text-yellow-400"
-                        onClick={() =>
-                          handleItemChange(
-                            index,
-                            "quantity",
-                            Math.max(1, item.quantity - 1)
-                          )
-                        }
-                      >
-                        <HiMinus />
-                      </button>
-                      <input
-                        type="number"
-                        min="1"
-                        className="w-16 bg-gray-700/50 border border-gray-600 rounded-lg px-2 py-1 text-white text-center"
-                        value={item.quantity}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    key={index}
+                    className="flex flex-col md:flex-row md:items-center gap-4 p-4 rounded-lg bg-gray-700/30 border border-gray-700/50"
+                  >
+                    <div className="flex-1">
+                      <label className="block text-gray-300 mb-1 text-sm">
+                        Produto
+                      </label>
+                      <select
+                        className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                        value={item.productId}
                         onChange={(e) =>
-                          handleItemChange(
-                            index,
-                            "quantity",
-                            parseInt(e.target.value) || 1
-                          )
-                        }
-                      />
-                      <button
-                        type="button"
-                        className="p-2 text-gray-400 hover:text-yellow-400"
-                        onClick={() =>
-                          handleItemChange(index, "quantity", item.quantity + 1)
+                          handleItemChange(index, "productId", e.target.value)
                         }
                       >
-                        <HiPlus />
-                      </button>
+                        <option value="">Selecione um produto</option>
+                        {availableProducts.map((product) => (
+                          <option key={product.id} value={product.id}>
+                            {product.name} - {product.price}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-gray-300 mb-1 text-sm">
+                        Quantidade
+                      </label>
+                      <div className="flex items-center gap-2 bg-gray-700/50 border border-gray-600 rounded-lg">
+                        <button
+                          type="button"
+                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/30 rounded-l-lg transition-colors"
+                          onClick={() =>
+                            handleItemChange(
+                              index,
+                              "quantity",
+                              Math.max(1, item.quantity - 1)
+                            )
+                          }
+                        >
+                          <HiMinus />
+                        </button>
+                        <input
+                          type="number"
+                          min="1"
+                          className="w-16 bg-transparent border-0 text-white text-center focus:outline-none focus:ring-0"
+                          value={item.quantity}
+                          onChange={(e) =>
+                            handleItemChange(
+                              index,
+                              "quantity",
+                              parseInt(e.target.value) || 1
+                            )
+                          }
+                        />
+                        <button
+                          type="button"
+                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/30 rounded-r-lg transition-colors"
+                          onClick={() =>
+                            handleItemChange(
+                              index,
+                              "quantity",
+                              item.quantity + 1
+                            )
+                          }
+                        >
+                          <HiPlus />
+                        </button>
+                      </div>
                     </div>
                     {items.length > 1 && (
                       <button
                         type="button"
-                        className="p-2 text-gray-400 hover:text-red-400"
+                        className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-colors"
                         onClick={() => handleRemoveItem(index)}
+                        aria-label="Remover item"
                       >
                         <HiTrash />
                       </button>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={handleAddItem}
-                  className="text-yellow-400 hover:text-yellow-300 flex items-center gap-2"
+                  className="text-yellow-400 hover:text-yellow-300 flex items-center gap-2 py-2 px-4 rounded-lg border border-yellow-400/30 hover:border-yellow-400 bg-yellow-400/5 hover:bg-yellow-400/10 transition-all duration-200"
                 >
                   <HiPlus /> Adicionar outro produto
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Informações Adicionais */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6">
-              <h2 className="text-xl font-semibold text-yellow-400 mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-700/50"
+            >
+              <h2 className="text-xl font-semibold text-yellow-400 flex items-center gap-2 mb-4">
+                <HiOutlineDocumentText className="w-5 h-5" />
                 Informações Adicionais
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-gray-300 mb-2">
+                  <label className="block text-gray-300 mb-2 font-medium">
                     Tipo de Projeto
                   </label>
                   <select
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
                     value={formData.projectType}
                     onChange={(e) =>
                       setFormData({ ...formData, projectType: e.target.value })
                     }
                   >
-                    <option value="residencial">Residencial</option>
-                    <option value="comercial">Comercial</option>
-                    <option value="industrial">Industrial</option>
+                    {projectTypes.map((type) => (
+                      <option key={type.value} value={type.value}>
+                        {type.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-gray-300 mb-2">
-                    Comentários Adicionais
+                  <label className="block text-gray-300 mb-2 font-medium">
+                    Comentários Adicionais{" "}
+                    <span className="text-gray-500 font-normal">
+                      (opcional)
+                    </span>
                   </label>
                   <textarea
                     rows="4"
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
                     value={formData.comments}
                     onChange={(e) =>
                       setFormData({ ...formData, comments: e.target.value })
                     }
+                    placeholder="Descreva detalhes específicos do seu projeto ou necessidades especiais..."
                   ></textarea>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full bg-yellow-400 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-yellow-300 transition-all duration-300"
+              disabled={isSubmitting}
+              className={`w-full bg-yellow-400 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-yellow-300 transition-all duration-300 flex items-center justify-center gap-2
+                ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
             >
-              <HiOutlineClipboardList className="inline-block mr-2" />
-              Solicitar Orçamento
-            </button>
+              {isSubmitting ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 text-gray-900"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span>Enviando...</span>
+                </>
+              ) : (
+                <>
+                  <HiOutlineClipboardList className="text-xl" />
+                  <span>Solicitar Orçamento</span>
+                </>
+              )}
+            </motion.button>
+
+            <p className="text-center text-gray-400 text-sm">
+              Ao enviar este formulário, você concorda com nossa{" "}
+              <a href="#" className="text-yellow-400 hover:underline">
+                Política de Privacidade
+              </a>
+            </p>
           </form>
         </motion.div>
       </div>

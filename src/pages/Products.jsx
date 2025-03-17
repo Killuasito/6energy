@@ -1,37 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import productsData from "../data/products.json";
 
 const Products = () => {
-  // Amostra de produtos para a página inicial
-  const featuredProducts = [
-    {
-      id: 1,
-      name: "Luminária LED Moderna",
-      category: "Luminárias",
-      price: "R$ 299,90",
-      image:
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2025/01/6N102951-EBB40-logo-scaled.webp",
-      description: "Design contemporâneo com tecnologia LED avançada",
-    },
-    {
-      id: 2,
-      name: "Spot Embutido Premium",
-      category: "Spots",
-      price: "R$ 189,90",
-      image:
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO_SPOT_POINT-PRETO.png",
-      description: "Acabamento refinado para ambientes sofisticados",
-    },
-    {
-      id: 3,
-      name: "Fita LED Inteligente",
-      category: "LED",
-      price: "R$ 249,90",
-      image:
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/04/FOTO-IRON-5035-PRETO-1.png",
-      description: "Controle por aplicativo, milhões de cores",
-    },
-  ];
+  const { featuredProducts } = productsData;
 
   return (
     <section className="py-24 bg-gray-900 relative overflow-hidden">

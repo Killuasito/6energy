@@ -60,7 +60,7 @@ const About = () => {
               <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-700">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-yellow-400 mb-2">
-                    10+
+                    10
                   </div>
                   <div className="text-sm text-gray-400">
                     Anos de Experiência
@@ -68,7 +68,7 @@ const About = () => {
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-yellow-400 mb-2">
-                    500+
+                    100+
                   </div>
                   <div className="text-sm text-gray-400">
                     Projetos Realizados

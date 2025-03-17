@@ -5,6 +5,7 @@ import Projects from "./Projects";
 const ProjectsPage = () => {
   const [filter, setFilter] = useState("todos");
   const [viewMode, setViewMode] = useState("grid");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const categories = [
     { id: "todos", name: "Todos" },
@@ -33,6 +34,18 @@ const ProjectsPage = () => {
           </motion.h1>
 
           <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+            {/* Search Input */}
+            <div className="w-full md:w-auto">
+              <input
+                type="text"
+                placeholder="Buscar projetos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-gray-100 
+                  focus:outline-none focus:border-yellow-400 transition-colors"
+              />
+            </div>
+
             {/* Filtros */}
             <div className="flex flex-wrap justify-center gap-4">
               {categories.map((category) => (
@@ -56,32 +69,56 @@ const ProjectsPage = () => {
             <div className="flex gap-4 bg-gray-800/50 p-2 rounded-lg">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-2 rounded ${
+                className={`p-2 rounded flex items-center gap-2 ${
                   viewMode === "grid"
                     ? "bg-yellow-400 text-gray-900"
                     : "text-gray-300"
                 }`}
               >
-                Grid
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  />
+                </svg>
+                <span className="hidden md:inline">Grid</span>
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-2 rounded ${
+                className={`p-2 rounded flex items-center gap-2 ${
                   viewMode === "list"
                     ? "bg-yellow-400 text-gray-900"
                     : "text-gray-300"
                 }`}
               >
-                Lista
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                <span className="hidden md:inline">Lista</span>
               </button>
             </div>
           </div>
         </div>
       </motion.section>
       <div className="bg-gray-900">
-        {" "}
-        {/* Added wrapper with background */}
-        <Projects filter={filter} viewMode={viewMode} />
+        <Projects filter={filter} viewMode={viewMode} searchTerm={searchTerm} />
       </div>
     </div>
   );

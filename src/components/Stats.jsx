@@ -9,17 +9,17 @@ const Stats = () => {
   const stats = [
     {
       icon: <HiOutlineLightBulb className="w-8 h-8" />,
-      value: "1500+",
+      value: "100+",
       label: "Projetos Realizados",
     },
     {
       icon: <HiOutlineUserGroup className="w-8 h-8" />,
-      value: "800+",
+      value: "100+",
       label: "Clientes Satisfeitos",
     },
     {
       icon: <HiOutlineStar className="w-8 h-8" />,
-      value: "10+",
+      value: "10",
       label: "Anos de Experiência",
     },
   ];

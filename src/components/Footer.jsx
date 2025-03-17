@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
-import {
-  HiOutlineLocationMarker,
-  HiOutlinePhone,
-  HiOutlineMail,
-} from "react-icons/hi";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { HiOutlineLightBulb, HiOutlineCurrencyDollar } from "react-icons/hi";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,14 +9,47 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white border-t border-gray-800">
       <div className="container mx-auto px-4 py-12">
+        {/* Quote CTA Banner */}
+        <div className="mb-12 p-8 bg-gradient-to-r from-gray-800 to-gray-800/70 rounded-xl text-center lg:text-left lg:flex items-center justify-between shadow-lg border border-gray-700/30">
+          <div className="lg:max-w-xl">
+            <div className="flex items-center justify-center lg:justify-start mb-4">
+              <div className="w-12 h-12 rounded-full bg-yellow-400/20 flex items-center justify-center mr-3">
+                <HiOutlineLightBulb className="w-6 h-6 text-yellow-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-white">
+                Pronto para transformar seu espaço?
+              </h3>
+            </div>
+            <p className="text-gray-300 mb-6 lg:mb-0 lg:pr-4">
+              Solicite um orçamento personalizado para seu projeto de iluminação
+              e descubra como podemos trazer mais eficiência e beleza para seu
+              ambiente.
+            </p>
+          </div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link
+              to="/orcamento"
+              className="inline-flex items-center px-8 py-3 bg-yellow-400 text-gray-900 rounded-lg font-semibold hover:bg-yellow-300 transition-all duration-300 shadow-lg"
+            >
+              <HiOutlineCurrencyDollar className="mr-2 text-xl" />
+              Solicitar Orçamento
+            </Link>
+          </motion.div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo & About */}
+          {/* Logo & About - Updated to use image instead of text */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
-              <h1 className="text-3xl font-bold whitespace-nowrap">
-                <span className="text-white">6</span>
-                <span className="text-yellow-400 mx-1">Energy</span>
-              </h1>
+              <img
+                src="/images/logo.png"
+                alt="6Energy"
+                className="h-24" /* Added logo image with appropriate size */
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "../6ENERGY.webp";
+                }}
+              />
             </Link>
             <p className="text-gray-400">
               Soluções inovadoras em iluminação para transformar seus espaços
@@ -75,10 +104,12 @@ const Footer = () => {
               Contato
             </h3>
             <ul className="space-y-2 text-gray-400">
-              <li>Rua da Luz, 123 - Centro</li>
-              <li>São Paulo, SP - 01234-567</li>
-              <li>(11) 99999-9999</li>
-              <li>contato@6energy.com</li>
+              <li>
+                Alameda Pd Miguel - Jardim V Grande, Vargem Grande Paulista -
+                SP, 06673-785
+              </li>
+              <li>(11) 5199 9251</li>
+              <li>juan.alvarez@6energy.com.br</li>
             </ul>
           </div>
 
@@ -89,7 +120,7 @@ const Footer = () => {
             </h3>
             <div className="flex space-x-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/6energy.iluminacao"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
@@ -97,7 +128,7 @@ const Footer = () => {
                 <FaFacebook size={24} />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/6energy.iluminacao/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
@@ -105,20 +136,12 @@ const Footer = () => {
                 <FaInstagram size={24} />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://br.linkedin.com/company/6-energy-iluminina%C3%A7%C3%A3o?trk=ppro_cprof"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <FaLinkedin size={24} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
-              >
-                <FaTwitter size={24} />
               </a>
             </div>
           </div>

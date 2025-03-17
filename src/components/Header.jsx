@@ -5,6 +5,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState("dark");
   const location = useLocation();
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const Header = () => {
     { name: "Sobre", path: "/sobre" },
     { name: "Projetos", path: "/projetos" },
     { name: "Produtos", path: "/produtos" },
+    { name: "Orçamento", path: "/orcamento" },
     { name: "Contato", path: "/contato" },
   ];
 
@@ -42,13 +44,13 @@ const Header = () => {
       className={`fixed w-full top-0 z-50 transition-all duration-500 ease-in-out
         ${
           isScrolled
-            ? "py-2 md:py-4 bg-gray-900/95 backdrop-blur-sm"
-            : "py-3 md:py-4 bg-gray-900"
+            ? "py-2 md:py-2 bg-gray-900/95 backdrop-blur-sm"
+            : "py-3 md:py-3 bg-gray-900"
         }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - increased the size */}
           <Link
             to="/"
             onClick={handleNavClick}
@@ -59,10 +61,15 @@ const Header = () => {
                   : "w-auto opacity-100"
               }`}
           >
-            <h1 className="text-4xl font-bold whitespace-nowrap">
-              <span className="text-white">6</span>
-              <span className="text-yellow-400 mx-2">Energy</span>
-            </h1>
+            <img
+              src="/images/logo.png"
+              alt="6Energy"
+              className="h-24 md:h-24" /* Increased from h-10 md:h-12 */
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "../6ENERGY.webp";
+              }}
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -89,6 +96,7 @@ const Header = () => {
                   </Link>
                 </li>
               ))}
+              {/* Theme Toggle Button */}
             </ul>
           </nav>
 

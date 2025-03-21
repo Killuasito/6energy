@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link as RouterLink } from "react-router-dom";
 import {
   HiOutlineArrowLeft,
   HiOutlineClock,
@@ -8,93 +8,15 @@ import {
   HiOutlineLightBulb,
 } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import projectsData from "../data/projects.json";
 
 const ProjectDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
 
-  // Banco de dados simulado de projetos
-  const projectsDatabase = {
-    1: {
-      title: "Residência Moderna",
-      category: "Residencial",
-      year: "2023",
-      location: "São Paulo, SP",
-      description:
-        "Projeto de iluminação completo para uma residência contemporânea, focando em eficiência energética e conforto visual. Utilizamos tecnologia LED de última geração e sistema de automação integrado.",
-      client: "Família Silva",
-      duration: "3 meses",
-      features: [
-        "Iluminação LED em todos os ambientes",
-        "Sistema de automação integrado",
-        "Luz natural otimizada",
-        "Eficiência energética",
-      ],
-      images: [
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2021/04/Slide157.jpeg?w=1200&ssl=1",
-        // Adicione mais imagens específicas deste projeto
-      ],
-      stats: [
-        { label: "Área Total", value: "350m²" },
-        { label: "Ambientes", value: "12" },
-        { label: "Pontos de Luz", value: "86" },
-      ],
-    },
-    2: {
-      title: "Centro Empresarial",
-      category: "Comercial",
-      year: "2024",
-      location: "São Paulo, SP",
-      description:
-        "Projeto corporativo de grande escala com foco em produtividade e eficiência energética. Sistema de iluminação inteligente que se adapta às condições naturais.",
-      client: "EDP Brasil",
-      duration: "6 meses",
-      features: [
-        "Iluminação inteligente adaptativa",
-        "Sensores de presença",
-        "Integração com luz natural",
-        "Sistema de gestão centralizado",
-      ],
-      images: [
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/08/EDP-Sede_Ana-Mello-9.jpg?resize=2048%2C1365&ssl=1",
-        // Adicione mais imagens específicas deste projeto
-      ],
-      stats: [
-        { label: "Área Total", value: "1.500m²" },
-        { label: "Pavimentos", value: "8" },
-        { label: "Pontos de Luz", value: "450" },
-      ],
-    },
-    3: {
-      title: "Restaurante Gourmet",
-      category: "Comercial",
-      year: "2024",
-      location: "São Paulo, SP",
-      description:
-        "Iluminação cênica para criar uma atmosfera acolhedora e sofisticada. Projeto focado em realçar a arquitetura e criar diferentes ambientações ao longo do dia.",
-      client: "Restaurante Le Petit",
-      duration: "2 meses",
-      features: [
-        "Iluminação cênica programável",
-        "Controle de temperatura de cor",
-        "Destaque para elementos arquitetônicos",
-        "Diferentes cenas pré-programadas",
-      ],
-      images: [
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/08/D759151-Edit.jpg?w=935&ssl=1",
-        // Adicione mais imagens específicas deste projeto
-      ],
-      stats: [
-        { label: "Área Total", value: "280m²" },
-        { label: "Ambientes", value: "8" },
-        { label: "Pontos de Luz", value: "124" },
-      ],
-    },
-  };
-
-  // Buscar projeto pelo ID
-  const project = projectsDatabase[id];
+  // Find the project by ID from our projects.json
+  const project = projectsData.projects.find((p) => p.id === parseInt(id));
 
   // Redirecionar para a página de projetos se o ID não existir
   if (!project) {
@@ -247,15 +169,17 @@ const ProjectDetail = () => {
               </div>
             </div>
 
-            {/* CTA */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full bg-yellow-400 text-gray-900 py-4 px-6 rounded-xl font-semibold
-                hover:bg-yellow-300 transition-colors"
-            >
-              Solicitar Orçamento
-            </motion.button>
+            {/* CTA - Updated to use Link and navigate to orçamento page */}
+            <RouterLink to="/orcamento">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-yellow-400 text-gray-900 py-4 px-6 rounded-xl font-semibold
+                  hover:bg-yellow-300 transition-colors"
+              >
+                Solicitar Orçamento
+              </motion.button>
+            </RouterLink>
           </motion.div>
         </div>
       </div>

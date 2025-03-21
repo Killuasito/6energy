@@ -1,18 +1,30 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Projects from "./Projects";
+import projectsData from "../data/projects.json";
 
 const ProjectsPage = () => {
   const [filter, setFilter] = useState("todos");
   const [viewMode, setViewMode] = useState("grid");
   const [searchTerm, setSearchTerm] = useState("");
-
-  const categories = [
+  const [categories, setCategories] = useState([
     { id: "todos", name: "Todos" },
-    { id: "residencial", name: "Residencial" },
-    { id: "comercial", name: "Comercial" },
-    { id: "industrial", name: "Industrial" },
-  ];
+  ]);
+
+  // Generate categories dynamically from the projects data
+  useEffect(() => {
+    const uniqueCategories = [
+      ...new Set(projectsData.projects.map((p) => p.category)),
+    ];
+    const allCategories = [
+      { id: "todos", name: "Todos" },
+      ...uniqueCategories.map((cat) => ({
+        id: cat.toLowerCase(),
+        name: cat,
+      })),
+    ];
+    setCategories(allCategories);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-900">

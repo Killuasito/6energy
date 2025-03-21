@@ -5,7 +5,48 @@ import {
   HiOutlineLightBulb,
   HiOutlineUsers,
   HiOutlineCog,
+  HiChartBar,
+  HiDocumentText, // Changed from HiDocumentCheck
+  HiGlobe, // Changed from HiGlobeAmericas
+  HiOutlineGlobe, // Changed from HiGlobeEuropeAfrica
+  HiOutlineChip, // Changed from HiCpuChip
 } from "react-icons/hi";
+
+// Define the TimelineItem component that was missing
+const TimelineItem = ({ year, title, description, icon, inverted }) => {
+  return (
+    <div
+      className={`flex justify-between items-center w-full mb-12 ${
+        inverted ? "flex-row-reverse" : ""
+      }`}
+    >
+      <div className="w-5/12"></div> {/* Empty space on one side */}
+      <div className="relative flex items-center justify-center">
+        <div className="h-12 w-12 rounded-full bg-gray-800 border-4 border-gray-700 flex items-center justify-center z-10">
+          {icon}
+        </div>
+        <div
+          className="absolute w-16 h-1 bg-gray-700"
+          style={{
+            left: inverted ? "100%" : "auto",
+            right: inverted ? "auto" : "100%",
+          }}
+        ></div>
+      </div>
+      <motion.div
+        initial={{ opacity: 0, x: inverted ? -20 : 20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="w-5/12 bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl"
+      >
+        <div className="text-yellow-400 font-bold text-xl mb-1">{year}</div>
+        <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
+        <p className="text-gray-300 text-sm">{description}</p>
+      </motion.div>
+    </div>
+  );
+};
 
 const AboutPage = () => {
   const values = [
@@ -25,6 +66,69 @@ const AboutPage = () => {
       description: "Qualidade superior em cada projeto que realizamos",
     },
   ];
+
+  // Update timeline data with unique descriptions for each year
+  const timelineData = [
+    {
+      year: "2015",
+      title: "Fundação da Empresa",
+      description:
+        "A 6Energy foi fundada com a missão de revolucionar o mercado de iluminação com soluções inovadoras e sustentáveis.",
+      icon: <HiOutlineLightBulb className="text-yellow-400 w-6 h-6" />,
+    },
+    {
+      year: "2017",
+      title: "Expansão Nacional",
+      description:
+        "Ampliamos nossa atuação para todo o território nacional, estabelecendo parcerias estratégicas com distribuidores em várias regiões do Brasil.",
+      icon: <HiChartBar className="text-yellow-400 w-6 h-6" />,
+    },
+    {
+      year: "2019",
+      title: "Certificação ISO",
+      description:
+        "Conquistamos a certificação ISO 9001, reafirmando nosso compromisso com a qualidade e excelência em todos os nossos produtos e processos.",
+      icon: <HiDocumentText className="text-yellow-400 w-6 h-6" />,
+    },
+    {
+      year: "2021",
+      title: "Linha de Produtos Sustentáveis",
+      description:
+        "Lançamos nossa linha de produtos eco-friendly, utilizando materiais reciclados e componentes de baixo consumo energético, reforçando nosso compromisso com o meio ambiente.",
+      icon: <HiGlobe className="text-yellow-400 w-6 h-6" />,
+    },
+    {
+      year: "2023",
+      title: "Internacionalização",
+      description:
+        "Iniciamos nossa expansão para o mercado internacional, exportando nossos produtos para países da América Latina e começando operações em Portugal.",
+      icon: <HiOutlineGlobe className="text-yellow-400 w-6 h-6" />,
+    },
+    {
+      year: "2024",
+      title: "Inovação Tecnológica",
+      description:
+        "Implementamos soluções de IoT em nossos produtos, permitindo controle avançado de iluminação via aplicativos e integração com sistemas de automação residencial e comercial.",
+      icon: <HiOutlineChip className="text-yellow-400 w-6 h-6" />,
+    },
+  ];
+
+  // Timeline component within the AboutPage
+  const Timeline = () => (
+    <div className="py-16 relative">
+      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700"></div>
+      {timelineData.map((item, index) => (
+        <TimelineItem
+          key={item.year}
+          year={item.year}
+          title={item.title}
+          description={item.description}
+          icon={item.icon}
+          inverted={index % 2 !== 0}
+        />
+      ))}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -79,27 +183,7 @@ const AboutPage = () => {
             Nossa História
           </h2>
           <div className="max-w-3xl mx-auto">
-            {[2013, 2016, 2019, 2023].map((year, index) => (
-              <motion.div
-                key={year}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-8 mb-12"
-              >
-                <div className="w-32 text-right">
-                  <span className="text-2xl font-bold text-yellow-400">
-                    {year}
-                  </span>
-                </div>
-                <div className="flex-1 bg-gray-900/50 p-6 rounded-xl">
-                  <p className="text-gray-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+            <Timeline />
           </div>
         </div>
       </motion.section>

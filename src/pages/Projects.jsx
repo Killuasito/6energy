@@ -1,45 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import projectsData from "../data/projects.json";
 
 const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
   const navigate = useNavigate();
-
-  const projects = [
-    {
-      id: 1,
-      title: "Residência Moderna",
-      category: "residencial",
-      description: "Iluminação completa para casa contemporânea.",
-      image:
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2021/04/Slide157.jpeg?w=1200&ssl=1",
-      stats: "12 ambientes",
-      date: "2023",
-    },
-    {
-      id: 2,
-      title: "Centro Empresarial",
-      category: "comercial",
-      description: "Projeto corporativo com foco em produtividade.",
-      image:
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/08/EDP-Sede_Ana-Mello-9.jpg?resize=2048%2C1365&ssl=1",
-      stats: "1.500m²",
-      date: "2024",
-    },
-    {
-      id: 3,
-      title: "Restaurante Gourmet",
-      category: "comercial",
-      description: "Ambiente acolhedor com iluminação cênica.",
-      image:
-        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/08/D759151-Edit.jpg?w=935&ssl=1",
-      stats: "8 ambientes",
-      date: "2024",
-    },
-  ];
+  const { projects } = projectsData;
 
   // Filter projects based on category and search term with null checks
   const filteredProjects = projects.filter((project) => {
-    const matchesFilter = filter === "todos" || project.category === filter;
+    const matchesFilter =
+      filter === "todos" ||
+      project.category.toLowerCase() === filter.toLowerCase();
+
     const matchesSearch = searchTerm
       ? project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         project.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -130,7 +102,7 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
                   // Grid view layout
                   <div className="relative overflow-hidden aspect-[4/5]">
                     <img
-                      src={project.image}
+                      src={project.images[0]}
                       alt={project.title}
                       className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700"
                     />
@@ -140,18 +112,18 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
                     {/* Content always visible at bottom */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <span className="inline-block px-2 py-1 text-xs font-medium bg-yellow-400 text-gray-900 rounded-full mb-3">
-                        {project.category.charAt(0).toUpperCase() +
-                          project.category.slice(1)}
+                        {project.category}
                       </span>
                       <h3 className="text-xl font-bold text-white mb-2">
                         {project.title}
                       </h3>
                       <p className="text-gray-300 text-sm mb-3">
-                        {project.description}
+                        {project.shortDescription ||
+                          project.description.substring(0, 80) + "..."}
                       </p>
                       <div className="flex items-center justify-between">
                         <span className="text-yellow-400 text-sm font-medium">
-                          {project.stats}
+                          {project.stats[0].value}
                         </span>
                         <button className="text-white hover:text-yellow-400 transition-colors">
                           Ver projeto →
@@ -164,7 +136,7 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-64 h-48">
                       <img
-                        src={project.image}
+                        src={project.images[0]}
                         alt={project.title}
                         className="w-full h-full object-cover"
                       />
@@ -173,21 +145,21 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <span className="inline-block px-2 py-1 text-xs font-medium bg-yellow-400 text-gray-900 rounded-full mb-2">
-                            {project.category.charAt(0).toUpperCase() +
-                              project.category.slice(1)}
+                            {project.category}
                           </span>
                           <h3 className="text-xl font-bold text-white">
                             {project.title}
                           </h3>
                         </div>
-                        <span className="text-gray-400">{project.date}</span>
+                        <span className="text-gray-400">{project.year}</span>
                       </div>
                       <p className="text-gray-300 mb-4">
-                        {project.description}
+                        {project.shortDescription ||
+                          project.description.substring(0, 100) + "..."}
                       </p>
                       <div className="flex justify-between items-center">
                         <span className="text-yellow-400 text-sm font-medium">
-                          {project.stats}
+                          {project.stats[0].value}
                         </span>
                         <button className="text-white hover:text-yellow-400 transition-colors">
                           Ver projeto →

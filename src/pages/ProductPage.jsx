@@ -13,6 +13,10 @@ import {
   HiOutlineHome,
   HiOutlineCube,
   HiOutlineViewGrid,
+  HiOutlineOfficeBuilding,
+  HiOutlineBeaker,
+  HiOutlineSun,
+  HiOutlineSparkles,
 } from "react-icons/hi";
 import productsData from "../data/products.json";
 
@@ -23,9 +27,17 @@ const ProductPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filtersVisible, setFiltersVisible] = useState(false);
-  const [categories, setCategories] = useState([]);
   const [sortOption, setSortOption] = useState("featured");
   const [sortVisible, setSortVisible] = useState(false);
+
+  // Use specific categories instead of extracting from products
+  const categories = [
+    "perfil",
+    "comercial",
+    "industrial",
+    "externa",
+    "decorativa",
+  ];
 
   // Sort options
   const sortOptions = [
@@ -43,15 +55,8 @@ const ProductPage = () => {
       try {
         // Get products from JSON
         const fetchedProducts = productsData.featuredProducts;
-
-        // Extract unique categories
-        const uniqueCategories = [
-          ...new Set(fetchedProducts.map((product) => product.category)),
-        ];
-
         setProducts(fetchedProducts);
         setFilteredProducts(fetchedProducts);
-        setCategories(uniqueCategories);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -69,7 +74,8 @@ const ProductPage = () => {
     // Apply category filter
     if (selectedCategory) {
       result = result.filter(
-        (product) => product.category === selectedCategory
+        (product) =>
+          product.category.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -313,7 +319,8 @@ const ProductPage = () => {
                             onClick={() => handleCategoryClick(category)}
                           >
                             {getCategoryIcon(category)}
-                            {category}
+                            {category.charAt(0).toUpperCase() +
+                              category.slice(1)}
                           </button>
                         </li>
                       ))}
@@ -346,7 +353,7 @@ const ProductPage = () => {
                         onClick={() => handleCategoryClick(category)}
                       >
                         {getCategoryIcon(category)}
-                        {category}
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
                       </button>
                     </li>
                   ))}
@@ -428,14 +435,16 @@ const ProductPage = () => {
 // Helper function to get category icons
 function getCategoryIcon(category) {
   switch (category.toLowerCase()) {
-    case "luminárias":
-      return <HiOutlineLightBulb className="w-4 h-4" />;
-    case "spots":
-      return <HiOutlineLightBulb className="w-4 h-4" />;
-    case "led":
-      return <HiOutlineLightBulb className="w-4 h-4" />;
     case "perfil":
       return <HiOutlineCube className="w-4 h-4" />;
+    case "comercial":
+      return <HiOutlineOfficeBuilding className="w-4 h-4" />;
+    case "industrial":
+      return <HiOutlineBeaker className="w-4 h-4" />;
+    case "externa":
+      return <HiOutlineSun className="w-4 h-4" />;
+    case "decorativa":
+      return <HiOutlineSparkles className="w-4 h-4" />;
     default:
       return <HiOutlineTag className="w-4 h-4" />;
   }

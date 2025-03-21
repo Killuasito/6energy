@@ -9,7 +9,6 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
-import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import Projects from "./pages/Projects";
 import ProductPage from "./pages/ProductPage";
@@ -49,7 +48,6 @@ function App() {
                 <Projects />
                 <Products />
                 <Testimonials />
-                <Contact />
               </PageTransition>
             }
           />

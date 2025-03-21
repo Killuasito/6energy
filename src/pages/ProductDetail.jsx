@@ -141,19 +141,19 @@ const ProductDetail = () => {
         </Link>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Galeria de Imagens - Modified for better image display */}
+          {/* Galeria de Imagens - Modified to have rounded corners and remove background */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-4"
           >
-            <div className="bg-gray-800 rounded-xl overflow-hidden">
+            <div className="rounded-xl overflow-hidden flex justify-center items-center">
               {product && product.images && product.images.length > 0 ? (
                 <div className="flex justify-center items-center p-4">
                   <img
                     src={product.images[selectedImage]}
                     alt={product.name}
-                    className="max-w-full max-h-[400px] object-contain"
+                    className="max-w-full max-h-[400px] object-contain rounded-xl"
                     onError={(e) => {
                       console.error("Image failed to load:", e.target.src);
                       e.target.src =
@@ -162,7 +162,7 @@ const ProductDetail = () => {
                   />
                 </div>
               ) : (
-                <div className="w-full h-64 flex items-center justify-center text-gray-500">
+                <div className="w-full h-64 flex items-center justify-center text-gray-500 rounded-xl">
                   Imagem não disponível
                 </div>
               )}
@@ -182,7 +182,7 @@ const ProductDetail = () => {
                     <img
                       src={image}
                       alt={`${product.name} - vista ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-lg"
                       onError={(e) => {
                         e.target.src =
                           "https://via.placeholder.com/100?text=Error";

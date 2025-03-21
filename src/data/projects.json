@@ -1,0 +1,53 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Prédio EDP",
+      "category": "Comercial",
+      "location": "São Paulo, SP",
+      "description": "A EDP é uma empresa do setor energético, com uma posição consolidada na Península Ibérica, quer ao nível de produção, distribuição e comercialização de eletricidade, e comercialização de gás.",
+      "client": "EDP",
+      "duration": "3 meses",
+      "features": [
+        "Iluminação LED em todos os ambientes",
+        "Sistema de automação integrado",
+        "Luz natural otimizada",
+        "Eficiência energética"
+      ],
+      "images": [
+        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/08/EDP-Sede_Ana-Mello-9.jpg?resize=2048%2C1365&ssl=1"
+      ],
+      "stats": [
+        { "label": "Área Total", "value": "350m²" },
+        { "label": "Ambientes", "value": "12" },
+        { "label": "Pontos de Luz", "value": "86" }
+      ],
+      "shortDescription": "Iluminação completa para um prédio contemporâneo."
+    },
+    {
+      "id": 2,
+      "title": "Prédio CIELO",
+      "category": "Comercial",
+      "year": "2024",
+      "location": "São Paulo, SP",
+      "description": "Atua como adquirente multi-bandeira, sendo uma das responsáveis pela captura, transmissão e liquidação financeira de transações com cartões de crédito e débito.",
+      "client": "CIELO",
+      "duration": "3 meses",
+      "features": [
+        "Iluminação inteligente adaptativa",
+        "Sensores de presença",
+        "Integração com luz natural",
+        "Sistema de gestão centralizado"
+      ],
+      "images": [
+        "https://i0.wp.com/www.6energy.com.br/wp-content/uploads/2024/08/D759151-Edit.jpg?w=935&ssl=1"
+      ],
+      "stats": [
+        { "label": "Área Total", "value": "1.500m²" },
+        { "label": "Pavimentos", "value": "8" },
+        { "label": "Pontos de Luz", "value": "450" }
+      ],
+      "shortDescription": "Projeto corporativo com foco em produtividade."
+    }
+  ]
+}

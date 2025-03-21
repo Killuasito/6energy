@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -100,43 +101,66 @@ const Header = () => {
             </ul>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
+          {/* Mobile Menu Button - Improved with animation */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-white p-2 focus:outline-none"
+            className="md:hidden text-white p-2 focus:outline-none bg-gray-800/50 rounded-full"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-          </button>
+          </motion.button>
         </div>
 
-        {/* Mobile Navigation with improved styling */}
-        <div
-          className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden
-            ${
-              isMobileMenuOpen
-                ? "max-h-[400px] opacity-100 bg-gray-900/95 backdrop-blur-sm"
-                : "max-h-0 opacity-0"
-            }`}
-        >
-          <nav className="py-4">
-            <ul className="space-y-4 px-2">
-              {" "}
-              {/* Added padding */}
-              {navItems.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    to={item.path}
-                    onClick={handleNavClick}
-                    className="block text-gray-100 hover:text-yellow-400 transition-colors
-                      text-base uppercase tracking-wider font-medium py-3 text-center" // Increased text size and padding
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
+        {/* Mobile Navigation - Completely redesigned */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden bg-gray-800/95 backdrop-blur-md mt-2 rounded-xl overflow-hidden border border-gray-700/30"
+            >
+              <nav className="py-2">
+                <ul className="divide-y divide-gray-700/30">
+                  {navItems.map((item, index) => (
+                    <motion.li
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="relative"
+                    >
+                      {/* Active indicator bar */}
+                      {location.pathname === item.path && (
+                        <motion.div
+                          className="absolute left-0 top-0 bottom-0 w-1 bg-yellow-400"
+                          initial={{ scaleY: 0 }}
+                          animate={{ scaleY: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+
+                      <Link
+                        to={item.path}
+                        onClick={handleNavClick}
+                        className={`flex items-center px-6 py-4 text-gray-100 hover:text-yellow-400 hover:bg-gray-700/30 transition-all
+                          text-lg tracking-wide font-medium ${
+                            location.pathname === item.path
+                              ? "text-yellow-400"
+                              : ""
+                          }`}
+                      >
+                        <span>{item.name}</span>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

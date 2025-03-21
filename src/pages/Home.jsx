@@ -1,23 +1,7 @@
 import { motion } from "framer-motion";
 import { HiLightBulb, HiSparkles, HiWrenchScrewdriver } from "react-icons/hi2";
-import { useState, useEffect } from "react";
 
 const Home = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  // Adicionar efeito de luz dinâmica
-  const lightStyle = {
-    background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 188, 0, 0.10), transparent 80%)`,
-  };
-
   // Adicionar animações para os textos
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -30,12 +14,6 @@ const Home = () => {
 
   return (
     <section className="min-h-screen relative bg-gray-900 overflow-hidden">
-      {/* Efeito de luz que segue o mouse */}
-      <div
-        className="fixed inset-0 pointer-events-none z-10"
-        style={lightStyle}
-      />
-
       {/* Background patterns */}
       <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-20"></div>
 

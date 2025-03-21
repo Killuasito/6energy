@@ -13,6 +13,7 @@ import {
   HiOutlineLightBulb,
   HiOutlineCheck,
 } from "react-icons/hi";
+import productsData from "../data/products.json";
 
 const QuotePage = () => {
   const [items, setItems] = useState([{ productId: "", quantity: 1 }]);
@@ -27,15 +28,13 @@ const QuotePage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Exemplo de produtos disponíveis
-  const availableProducts = [
-    { id: 1, name: "Luminária LED Moderna", price: "R$ 299,90" },
-    { id: 2, name: "Spot Embutido Premium", price: "R$ 189,90" },
-    { id: 3, name: "Fita LED Inteligente", price: "R$ 249,90" },
-    { id: 4, name: "Pendente Minimalista", price: "R$ 349,90" },
-    { id: 5, name: "Luminária de Mesa Design", price: "R$ 229,90" },
-    { id: 6, name: "Painel LED Ultra-fino", price: "R$ 279,90" },
-  ];
+  // Use products from the products.json file without generating fake prices
+  const availableProducts = productsData.featuredProducts.map((product) => ({
+    id: product.id,
+    name: product.name,
+    category: product.category,
+    image: product.image,
+  }));
 
   const handleAddItem = () => {
     setItems([...items, { productId: "", quantity: 1 }]);
@@ -277,29 +276,75 @@ const QuotePage = () => {
                       <label className="block text-gray-300 mb-1 text-sm">
                         Produto
                       </label>
-                      <select
-                        className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                        value={item.productId}
-                        onChange={(e) =>
-                          handleItemChange(index, "productId", e.target.value)
-                        }
-                      >
-                        <option value="">Selecione um produto</option>
-                        {availableProducts.map((product) => (
-                          <option key={product.id} value={product.id}>
-                            {product.name} - {product.price}
+                      <div className="relative">
+                        <select
+                          className="w-full bg-gray-700/80 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 appearance-none cursor-pointer shadow-inner"
+                          value={item.productId}
+                          onChange={(e) =>
+                            handleItemChange(index, "productId", e.target.value)
+                          }
+                          style={{
+                            backgroundImage: "none",
+                            WebkitAppearance: "none",
+                          }}
+                        >
+                          <option
+                            value=""
+                            className="py-3 px-4 bg-gray-800 hover:bg-gray-700"
+                          >
+                            Selecione um produto
                           </option>
-                        ))}
-                      </select>
+                          {availableProducts.map((product) => (
+                            <option
+                              key={product.id}
+                              value={product.id}
+                              className="py-3 px-4 bg-gray-800 hover:bg-gray-700 border-b border-gray-700 last:border-0"
+                            >
+                              {product.name} - {product.category}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-yellow-400">
+                          <svg
+                            className="w-5 h-5 transition-transform"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Product preview when selected */}
+                    {item.productId && (
+                      <div className="w-20 h-20 hidden md:flex items-center justify-center rounded-lg bg-gray-800/70 border border-gray-700/30 overflow-hidden">
+                        <img
+                          src={
+                            availableProducts.find(
+                              (p) => p.id === Number(item.productId)
+                            )?.image
+                          }
+                          alt="Produto"
+                          className="max-w-full max-h-full object-contain p-1"
+                        />
+                      </div>
+                    )}
+
                     <div>
                       <label className="block text-gray-300 mb-1 text-sm">
                         Quantidade
                       </label>
-                      <div className="flex items-center gap-2 bg-gray-700/50 border border-gray-600 rounded-lg">
+                      <div className="flex items-center gap-2 bg-gray-700/80 border border-gray-600 rounded-lg shadow-inner">
                         <button
                           type="button"
-                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/30 rounded-l-lg transition-colors"
+                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/50 rounded-l-lg transition-colors flex items-center justify-center w-8 h-10"
                           onClick={() =>
                             handleItemChange(
                               index,
@@ -313,7 +358,7 @@ const QuotePage = () => {
                         <input
                           type="number"
                           min="1"
-                          className="w-16 bg-transparent border-0 text-white text-center focus:outline-none focus:ring-0"
+                          className="w-12 bg-transparent border-0 text-white text-center focus:outline-none focus:ring-0"
                           value={item.quantity}
                           onChange={(e) =>
                             handleItemChange(
@@ -325,7 +370,7 @@ const QuotePage = () => {
                         />
                         <button
                           type="button"
-                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/30 rounded-r-lg transition-colors"
+                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/50 rounded-r-lg transition-colors flex items-center justify-center w-8 h-10"
                           onClick={() =>
                             handleItemChange(
                               index,
@@ -341,11 +386,11 @@ const QuotePage = () => {
                     {items.length > 1 && (
                       <button
                         type="button"
-                        className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-colors"
+                        className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-colors self-center mt-2 md:mt-0"
                         onClick={() => handleRemoveItem(index)}
                         aria-label="Remover item"
                       >
-                        <HiTrash />
+                        <HiTrash className="w-5 h-5" />
                       </button>
                     )}
                   </motion.div>
@@ -378,19 +423,47 @@ const QuotePage = () => {
                   <label className="block text-gray-300 mb-2 font-medium">
                     Tipo de Projeto
                   </label>
-                  <select
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                    value={formData.projectType}
-                    onChange={(e) =>
-                      setFormData({ ...formData, projectType: e.target.value })
-                    }
-                  >
-                    {projectTypes.map((type) => (
-                      <option key={type.value} value={type.value}>
-                        {type.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      className="w-full bg-gray-700/80 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 appearance-none shadow-inner"
+                      value={formData.projectType}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          projectType: e.target.value,
+                        })
+                      }
+                      style={{
+                        backgroundImage: "none",
+                        WebkitAppearance: "none",
+                      }}
+                    >
+                      {projectTypes.map((type) => (
+                        <option
+                          key={type.value}
+                          value={type.value}
+                          className="py-3 px-4 bg-gray-800 hover:bg-gray-700 border-b border-gray-700 last:border-0"
+                        >
+                          {type.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-yellow-400">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-gray-300 mb-2 font-medium">

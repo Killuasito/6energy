@@ -118,36 +118,49 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id, navigate]);
 
-  const handleDownload = (fileName, e) => {
-    e.preventDefault();
-    // Create a blank text file with the proper name
-    const fileExtension = fileName.split(".").pop().toLowerCase();
-
-    // Create different content based on file type
-    let content = "";
-    let mimeType = "";
-
-    if (fileExtension === "ldt") {
-      content = `This is a sample LDT file for ${product.name}.\nIn a real application, this would contain photometric data.`;
-      mimeType = "text/plain";
-    } else if (fileExtension === "pdf") {
-      content = `This is a sample PDF content for ${product.name}.\nIn a real application, this would be a binary PDF file.`;
-      mimeType = "text/plain"; // In real app, would be application/pdf
+  useEffect(() => {
+    if (product) {
+      // No need to update the product state here; compute downloads dynamically
+      console.log("Selected variation updated:", selectedVariation);
     }
+  }, [selectedVariation]);
 
-    const blob = new Blob([content], { type: mimeType });
-    const url = URL.createObjectURL(blob);
+  const getUpdatedDownloads = () => {
+    if (!product) return [];
+    return product.downloads.map((download) => {
+      if (download.fileName.includes("Ficha Técnica")) {
+        return {
+          ...download,
+          fileName: `${product.name} - Ficha Técnica (${selectedVariation.color}, ${selectedVariation.temperature}).pdf`,
+          filePath: `/downloads/${product.name.replace(/\s+/g, "-")}-${
+            selectedVariation.color
+          }-${selectedVariation.temperature}.pdf`,
+        };
+      } else if (download.fileName.includes(".LDT")) {
+        return {
+          ...download,
+          fileName: `${product.name} (${selectedVariation.color}, ${selectedVariation.temperature}).LDT`,
+          filePath: `/downloads/${product.name.replace(/\s+/g, "-")}-${
+            selectedVariation.color
+          }-${selectedVariation.temperature}.ldt`,
+        };
+      }
+      return download;
+    });
+  };
 
-    // Create a temporary link and click it
+  const updatedDownloads = getUpdatedDownloads();
+
+  const handleDownload = (filePath, e) => {
+    e.preventDefault();
+
+    // Redirect to the dynamically generated file path
     const link = document.createElement("a");
-    link.href = url;
-    link.download = fileName;
+    link.href = filePath;
+    link.download = filePath.split("/").pop(); // Extract file name
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    // Clean up the URL object
-    setTimeout(() => URL.revokeObjectURL(url), 100);
   };
 
   if (loading) {
@@ -341,28 +354,24 @@ const ProductDetail = () => {
                   Arquivos para Download
                 </h3>
                 <div className="space-y-3">
-                  {product.downloads.map((download, index) => (
+                  {updatedDownloads.map((download, index) => (
                     <motion.a
                       key={index}
-                      href={download.url}
-                      onClick={(e) =>
-                        download.downloadHandler &&
-                        handleDownload(download.fileName, e)
-                      }
+                      href={download.filePath}
+                      onClick={(e) => handleDownload(download.filePath, e)}
                       className="flex items-center p-3 bg-gray-800/50 hover:bg-gray-800/80 border border-gray-700/50 rounded-lg group transition-all duration-300"
                       whileHover={{ scale: 1.02, x: 5 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className="w-10 h-10 rounded-full bg-orange-400/20 flex items-center justify-center mr-3 group-hover:bg-orange-400/30 transition-colors">
-                        {download.icon}
+                        {download.icon || (
+                          <HiOutlineDocumentText className="w-5 h-5" />
+                        )}
                       </div>
                       <div className="flex-1">
                         <h4 className="text-white font-medium">
                           {download.name}
                         </h4>
-                        <p className="text-gray-400 text-sm">
-                          {download.description}
-                        </p>
                       </div>
                       <HiOutlineDownload className="w-5 h-5 text-gray-400 group-hover:text-orange-500 transition-all transform group-hover:translate-y-0.5" />
                     </motion.a>

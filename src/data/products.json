@@ -26,7 +26,17 @@
       "variations": {
         "colors": ["Branco", "Preto", "Cinza", "Grafite"],
         "temperatures": ["3000K", "4000K"]
-      }
+      },
+      "downloads": [
+        {
+          "name": "Ficha Técnica",
+          "filePath": "/downloads/6N102269-ABB30.pdf"
+        },
+        {
+          "name": "Outro Arquivo",
+          "filePath": "/downloads/outro-arquivo.pdf"
+        }
+      ]
     }
   ]
 }

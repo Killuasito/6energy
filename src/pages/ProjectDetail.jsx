@@ -175,7 +175,7 @@ const ProjectDetail = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-orange-500 text-gray-900 py-4 px-6 rounded-xl font-semibold
-                  hover:bg-orange-400 transition-colors"
+                  hover:bg-orange-500 transition-colors"
               >
                 Solicitar Orçamento
               </motion.button>

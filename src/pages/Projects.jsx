@@ -141,7 +141,7 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
                     <div className="p-6 flex-1">
                       <div className="flex justify-between items-start mb-4">
                         <div>
-                          <span className="inline-block px-2 py-1 text-xs font-medium bg-yellow-400 text-gray-900 rounded-full mb-2">
+                          <span className="inline-block px-2 py-1 text-xs font-medium bg-orange-400 text-gray-900 rounded-full mb-2">
                             {project.category}
                           </span>
                           <h3 className="text-xl font-bold text-white">
@@ -155,10 +155,10 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
                           project.description.substring(0, 100) + "..."}
                       </p>
                       <div className="flex justify-between items-center">
-                        <span className="text-yellow-400 text-sm font-medium">
+                        <span className="text-orange-400 text-sm font-medium">
                           {project.stats[0].value}
                         </span>
-                        <button className="text-white hover:text-yellow-400 transition-colors">
+                        <button className="text-white hover:text-orange-400 transition-colors">
                           Ver projeto →
                         </button>
                       </div>

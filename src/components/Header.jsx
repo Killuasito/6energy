@@ -190,7 +190,7 @@ const Header = () => {
           </Link>
 
           <nav
-            className={`hidden md:block transition-all duration-500 ease-in-out ${
+            className={`hidden md:flex items-center space-x-8 transition-all duration-500 ease-in-out ${
               isScrolled ? "absolute left-1/2 -translate-x-1/2" : ""
             }`}
           >
@@ -200,12 +200,12 @@ const Header = () => {
                   <Link
                     to={item.path}
                     onClick={handleNavClick}
-                    className="text-gray-100 hover:text-yellow-400 transition-all duration-300
+                    className="text-gray-100 hover:text-orange-500 transition-all duration-300
                       text-sm uppercase tracking-wider font-medium py-2 relative group"
                   >
                     {item.name}
                     <span
-                      className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 
+                      className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 
                       transform scale-x-0 transition-transform duration-300 origin-left 
                       group-hover:scale-x-100"
                     />
@@ -213,59 +213,28 @@ const Header = () => {
                 </li>
               ))}
             </ul>
-          </nav>
 
-          <div className="flex items-center space-x-2">
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setShowSearch(!showSearch)}
-              className="hidden md:block text-white p-2 focus:outline-none rounded-full hover:bg-gray-800/50"
-              aria-label="Search"
-            >
-              <HiSearch
-                size={20}
-                className="text-gray-300 hover:text-yellow-400"
-              />
-            </motion.button>
-
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-white p-2 focus:outline-none bg-gray-800/50 rounded-full"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-            </motion.button>
-          </div>
-        </div>
-
-        <AnimatePresence>
-          {showSearch && (
-            <motion.form
-              ref={searchRef}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              onSubmit={handleSearch}
-              className="mt-2 relative hidden md:block"
-            >
-              <div className="relative">
+            <div className="relative">
+              <form
+                ref={searchRef}
+                onSubmit={handleSearch}
+                className="flex items-center bg-gray-800 border border-gray-700 rounded-lg px-4 py-2"
+              >
+                <HiSearch className="text-gray-400 mr-2" />
                 <input
                   type="text"
                   placeholder="Buscar no site..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-4 pr-10 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                  autoFocus
+                  className="bg-transparent text-white focus:outline-none flex-grow"
                 />
                 <button
                   type="submit"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-yellow-400"
+                  className="text-gray-400 hover:text-orange-500"
                 >
                   <HiSearch size={20} />
                 </button>
-              </div>
+              </form>
 
               <AnimatePresence>
                 {showSuggestions && suggestions.length > 0 && (
@@ -299,17 +268,18 @@ const Header = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
+            </div>
+          </nav>
 
-              <button
-                type="button"
-                className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-gray-100 hover:text-yellow-400"
-                onClick={() => setShowSearch(false)}
-              >
-                Fechar
-              </button>
-            </motion.form>
-          )}
-        </AnimatePresence>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden text-white p-2 focus:outline-none bg-gray-800/50 rounded-full"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+          </motion.button>
+        </div>
 
         <AnimatePresence>
           {isMobileMenuOpen && (
@@ -331,11 +301,11 @@ const Header = () => {
                     placeholder="Buscar no site..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-gray-700/60 border border-gray-600 rounded-lg py-2 px-4 pr-10 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                    className="w-full bg-gray-700/60 border border-gray-600 rounded-lg py-2 px-4 pr-10 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                   <button
                     type="submit"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-yellow-400"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500"
                   >
                     <HiSearch size={20} />
                   </button>
@@ -387,7 +357,7 @@ const Header = () => {
                     >
                       {location.pathname === item.path && (
                         <motion.div
-                          className="absolute left-0 top-0 bottom-0 w-1 bg-yellow-400"
+                          className="absolute left-0 top-0 bottom-0 w-1 bg-orange-500"
                           initial={{ scaleY: 0 }}
                           animate={{ scaleY: 1 }}
                           transition={{ duration: 0.3 }}
@@ -397,10 +367,10 @@ const Header = () => {
                       <Link
                         to={item.path}
                         onClick={handleNavClick}
-                        className={`flex items-center px-6 py-4 text-gray-100 hover:text-yellow-400 hover:bg-gray-700/30 transition-all
+                        className={`flex items-center px-6 py-4 text-gray-100 hover:text-orange-500 hover:bg-gray-700/30 transition-all
                           text-lg tracking-wide font-medium ${
                             location.pathname === item.path
-                              ? "text-yellow-400"
+                              ? "text-orange-500"
                               : ""
                           }`}
                       >

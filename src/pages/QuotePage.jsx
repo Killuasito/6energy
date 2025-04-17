@@ -15,16 +15,19 @@ import {
   HiOutlineCheck,
 } from "react-icons/hi";
 import productsData from "../data/products.json";
+import emailjs from "emailjs-com";
 
 const QuotePage = () => {
   const location = useLocation();
   const preselectedProductId = location.state?.selectedProduct || "";
+  const preselectedVariation = location.state?.selectedVariation || null;
 
   // Initialize with preselected product if available
   const [items, setItems] = useState([
     {
       productId: preselectedProductId ? String(preselectedProductId) : "",
       quantity: 1,
+      variation: preselectedVariation, // Include the variation
     },
   ]);
   const [formData, setFormData] = useState({
@@ -64,12 +67,62 @@ const QuotePage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulando um envio para API
-    setTimeout(() => {
-      console.log({ ...formData, items });
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1500);
+    const emailData = {
+      user_name: formData.name, // Match with template variable
+      user_email: formData.email, // Match with template variable
+      user_phone: formData.phone, // Match with template variable
+      user_company: formData.company, // Match with template variable
+      project_type: formData.projectType, // Match with template variable
+      user_comments: formData.comments, // Match with template variable
+      product_list: items
+        .map(
+          (item) =>
+            `Produto: ${
+              availableProducts.find((p) => p.id === Number(item.productId))
+                ?.name || "N/A"
+            }, Quantidade: ${item.quantity}, Variação: ${
+              item.variation?.color || "N/A"
+            } - ${item.variation?.temperature || "N/A"}`
+        )
+        .join("\n"), // Combine product details into a single string
+    };
+
+    emailjs
+      .send(
+        "service_8hj0np4", // Replace with your EmailJS service ID
+        "template_i2jfcyc", // Replace with your EmailJS template ID
+        emailData,
+        "y_Gw2gjFyzo9n9T2h" // Replace with your EmailJS user ID
+      )
+      .then(
+        (response) => {
+          console.log(
+            "Email sent successfully:",
+            response.status,
+            response.text
+          );
+          setIsSubmitting(false);
+          setIsSubmitted(true);
+
+          // Scroll to the "Orçamento Solicitado" section
+          setTimeout(() => {
+            const successSection = document.querySelector(
+              '[data-section="success"]'
+            );
+            if (successSection) {
+              successSection.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+            }
+          }, 100);
+        },
+        (error) => {
+          console.error("Failed to send email:", error);
+          setIsSubmitting(false);
+          alert("Ocorreu um erro ao enviar o formulário. Tente novamente.");
+        }
+      );
   };
 
   const projectTypes = [
@@ -111,7 +164,10 @@ const QuotePage = () => {
 
   if (isSubmitted) {
     return (
-      <section className="py-32 bg-gray-900 min-h-screen flex items-center">
+      <section
+        className="py-32 bg-gray-900 min-h-screen flex items-center"
+        data-section="success"
+      >
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -142,7 +198,7 @@ const QuotePage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => (window.location.href = "/")}
-                className="px-6 py-3 bg-yellow-400 text-gray-900 rounded-lg font-medium hover:bg-yellow-300 transition-all"
+                className="px-6 py-3 bg-orange-500 text-gray-900 rounded-lg font-medium hover:bg-orange-400 transition-all"
               >
                 Voltar ao Início
               </motion.button>
@@ -162,10 +218,10 @@ const QuotePage = () => {
           className="max-w-4xl mx-auto"
         >
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-400/20 mb-4">
-              <HiOutlineClipboardList className="w-8 h-8 text-yellow-400" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-400/20 mb-4">
+              <HiOutlineClipboardList className="w-8 h-8 text-orange-400" />
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+            <h1 className="text-4xl font-bold mb-4 bg-clip-text text-orange-500">
               Solicitar Orçamento
             </h1>
             <p className="text-gray-300 max-w-2xl mx-auto">
@@ -183,7 +239,7 @@ const QuotePage = () => {
               transition={{ delay: 0.1 }}
               className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 space-y-4 shadow-lg border border-gray-700/50"
             >
-              <h2 className="text-xl font-semibold text-yellow-400 flex items-center gap-2 mb-4">
+              <h2 className="text-xl font-semibold text-orange-500 flex items-center gap-2 mb-4">
                 <HiOutlineUser className="w-5 h-5" />
                 Informações Pessoais
               </h2>
@@ -199,7 +255,7 @@ const QuotePage = () => {
                     <input
                       type="text"
                       required
-                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
@@ -219,7 +275,7 @@ const QuotePage = () => {
                     <input
                       type="email"
                       required
-                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
@@ -239,7 +295,7 @@ const QuotePage = () => {
                     <input
                       type="tel"
                       required
-                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                       value={formData.phone}
                       onChange={(e) => {
                         // Apply phone mask (xx) xxxxx-xxxx
@@ -279,7 +335,7 @@ const QuotePage = () => {
                     </div>
                     <input
                       type="text"
-                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                      className="w-full bg-gray-700/50 border border-gray-600 rounded-lg pl-10 px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                       value={formData.company}
                       onChange={(e) =>
                         setFormData({ ...formData, company: e.target.value })
@@ -299,7 +355,7 @@ const QuotePage = () => {
               transition={{ delay: 0.2 }}
               className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-700/50"
             >
-              <h2 className="text-xl font-semibold text-yellow-400 flex items-center gap-2 mb-4">
+              <h2 className="text-xl font-semibold text-orange-500 flex items-center gap-2 mb-4">
                 <HiOutlineLightBulb className="w-5 h-5" />
                 Produtos Desejados
               </h2>
@@ -317,7 +373,7 @@ const QuotePage = () => {
                       </label>
                       <div className="relative">
                         <select
-                          className="w-full bg-gray-700/80 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 appearance-none cursor-pointer shadow-inner"
+                          className="w-full bg-gray-700/80 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 appearance-none cursor-pointer shadow-inner"
                           value={item.productId}
                           onChange={(e) =>
                             handleItemChange(index, "productId", e.target.value)
@@ -343,7 +399,7 @@ const QuotePage = () => {
                             </option>
                           ))}
                         </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-yellow-400">
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-orange-500">
                           <svg
                             className="w-5 h-5 transition-transform"
                             fill="none"
@@ -376,6 +432,14 @@ const QuotePage = () => {
                       </div>
                     )}
 
+                    {/* Display selected variation */}
+                    {item.variation && (
+                      <div className="text-gray-300 text-sm">
+                        <p>Cor: {item.variation.color}</p>
+                        <p>Temperatura: {item.variation.temperature}</p>
+                      </div>
+                    )}
+
                     <div>
                       <label className="block text-gray-300 mb-1 text-sm">
                         Quantidade
@@ -383,7 +447,7 @@ const QuotePage = () => {
                       <div className="flex items-center gap-2 bg-gray-700/80 border border-gray-600 rounded-lg shadow-inner">
                         <button
                           type="button"
-                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/50 rounded-l-lg transition-colors flex items-center justify-center w-8 h-10"
+                          className="p-2 text-gray-400 hover:text-orange-500 hover:bg-gray-600/50 rounded-l-lg transition-colors flex items-center justify-center w-8 h-10"
                           onClick={() =>
                             handleItemChange(
                               index,
@@ -409,7 +473,7 @@ const QuotePage = () => {
                         />
                         <button
                           type="button"
-                          className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-gray-600/50 rounded-r-lg transition-colors flex items-center justify-center w-8 h-10"
+                          className="p-2 text-gray-400 hover:text-orange-500 hover:bg-gray-600/50 rounded-r-lg transition-colors flex items-center justify-center w-8 h-10"
                           onClick={() =>
                             handleItemChange(
                               index,
@@ -439,7 +503,7 @@ const QuotePage = () => {
                   whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={handleAddItem}
-                  className="text-yellow-400 hover:text-yellow-300 flex items-center gap-2 py-2 px-4 rounded-lg border border-yellow-400/30 hover:border-yellow-400 bg-yellow-400/5 hover:bg-yellow-400/10 transition-all duration-200"
+                  className="text-orange-500 hover:text-orange-400 flex items-center gap-2 py-2 px-4 rounded-lg border border-orange-400/30 hover:border-orange-500 bg-orange-400/5 hover:bg-orange-400/10 transition-all duration-200"
                 >
                   <HiPlus /> Adicionar outro produto
                 </motion.button>
@@ -453,7 +517,7 @@ const QuotePage = () => {
               transition={{ delay: 0.3 }}
               className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-700/50"
             >
-              <h2 className="text-xl font-semibold text-yellow-400 flex items-center gap-2 mb-4">
+              <h2 className="text-xl font-semibold text-orange-500 flex items-center gap-2 mb-4">
                 <HiOutlineDocumentText className="w-5 h-5" />
                 Informações Adicionais
               </h2>
@@ -464,7 +528,7 @@ const QuotePage = () => {
                   </label>
                   <div className="relative">
                     <select
-                      className="w-full bg-gray-700/80 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 appearance-none shadow-inner"
+                      className="w-full bg-gray-700/80 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 appearance-none shadow-inner"
                       value={formData.projectType}
                       onChange={(e) =>
                         setFormData({
@@ -487,7 +551,7 @@ const QuotePage = () => {
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-yellow-400">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-orange-500">
                       <svg
                         className="w-5 h-5"
                         fill="none"
@@ -513,7 +577,7 @@ const QuotePage = () => {
                   </label>
                   <textarea
                     rows="4"
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                     value={formData.comments}
                     onChange={(e) =>
                       setFormData({ ...formData, comments: e.target.value })
@@ -529,7 +593,7 @@ const QuotePage = () => {
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isSubmitting}
-              className={`w-full bg-yellow-400 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-yellow-300 transition-all duration-300 flex items-center justify-center gap-2
+              className={`w-full bg-orange-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-orange-400 transition-all duration-300 flex items-center justify-center gap-2
                 ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
             >
               {isSubmitting ? (
@@ -566,7 +630,7 @@ const QuotePage = () => {
 
             <p className="text-center text-gray-400 text-sm">
               Ao enviar este formulário, você concorda com nossa{" "}
-              <a href="#" className="text-yellow-400 hover:underline">
+              <a href="#" className="text-orange-500 hover:underline">
                 Política de Privacidade
               </a>
             </p>

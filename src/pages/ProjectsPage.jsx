@@ -92,7 +92,7 @@ const ProjectsPage = () => {
         <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-20"></div>
         <div className="container mx-auto px-4 relative">
           <motion.h1
-            className="text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200 mb-12"
+            className="text-5xl font-bold text-center bg-clip-text text-orange-500 mb-12"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -111,7 +111,7 @@ const ProjectsPage = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full px-10 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-gray-100 
-                    focus:outline-none focus:border-yellow-400 transition-colors"
+                    focus:outline-none focus:border-orange-500 transition-colors"
                 />
                 {searchTerm && (
                   <button
@@ -164,8 +164,8 @@ const ProjectsPage = () => {
                   whileTap={{ scale: 0.95 }}
                   className={`px-6 py-2 rounded-full transition-all duration-300 ${
                     filter === category.id
-                      ? "bg-yellow-400 text-gray-900"
-                      : "text-gray-300 hover:text-yellow-400 border border-yellow-400/30"
+                      ? "bg-orange-400/20 text-orange-500"
+                      : "text-gray-300 hover:text-orange-500 border border-yellow-400/30"
                   }`}
                 >
                   {category.name}
@@ -179,7 +179,7 @@ const ProjectsPage = () => {
                 onClick={() => setViewMode("grid")}
                 className={`p-2 rounded flex items-center gap-2 ${
                   viewMode === "grid"
-                    ? "bg-yellow-400 text-gray-900"
+                    ? "bg-orange-500 text-gray-900"
                     : "text-gray-300"
                 }`}
               >
@@ -202,7 +202,7 @@ const ProjectsPage = () => {
                 onClick={() => setViewMode("list")}
                 className={`p-2 rounded flex items-center gap-2 ${
                   viewMode === "list"
-                    ? "bg-yellow-400 text-gray-900"
+                    ? "bg-orange-500 text-gray-900"
                     : "text-gray-300"
                 }`}
               >

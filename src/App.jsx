@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     // Check if user has a preferred theme stored
     const storedTheme = localStorage.getItem("theme") || "dark";
-    document.documentElement.className = storedTheme;
+    document.documentElement.className = storedTheme.replace("amber", "orange");
   }, []);
 
   return (

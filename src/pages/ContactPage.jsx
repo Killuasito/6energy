@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "emailjs-com"; // Import EmailJS
 import {
   HiOutlineMail,
   HiOutlinePhone,
@@ -30,26 +31,48 @@ const ContactPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitError(false);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
+    const emailData = {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject || "Sem assunto",
+      message: formData.message || "Sem mensagem",
+    };
 
-      // Reset form after submission
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+    console.log("Email Data:", emailData); // Debugging
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    }, 1500);
+    emailjs
+      .send(
+        "your_service_id", // Replace with your EmailJS service ID
+        "your_template_id", // Replace with your EmailJS template ID
+        emailData,
+        "your_user_id" // Replace with your EmailJS user ID
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          setIsSubmitting(false);
+          setSubmitSuccess(true);
+
+          // Reset form after submission
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: "",
+          });
+
+          // Reset success message after 5 seconds
+          setTimeout(() => {
+            setSubmitSuccess(false);
+          }, 5000);
+        },
+        (error) => {
+          console.error("FAILED...", error);
+          setIsSubmitting(false);
+          setSubmitError(true);
+        }
+      );
   };
 
   // Contact cards data
@@ -113,7 +136,7 @@ const ContactPage = () => {
           className="max-w-6xl mx-auto"
         >
           <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+            <h1 className="text-4xl font-bold mb-4 bg-clip-text text-orange-500">
               Entre em Contato
             </h1>
             <p className="text-gray-300 max-w-xl mx-auto">
@@ -143,7 +166,7 @@ const ContactPage = () => {
                 <div
                   className={`w-16 h-16 rounded-full ${
                     iconBgs[item.color]
-                  } flex items-center justify-center mb-4 z-10`}
+                  } flex items-center justify-center mb-4 md:mb-6 z-10`}
                 >
                   {item.icon}
                 </div>
@@ -201,7 +224,7 @@ const ContactPage = () => {
               transition={{ delay: 0.3 }}
               className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/30 shadow-lg"
             >
-              <h2 className="text-2xl font-semibold text-yellow-400 mb-6">
+              <h2 className="text-2xl font-semibold text-orange-500 mb-6">
                 Envie-nos uma mensagem
               </h2>
 
@@ -231,7 +254,7 @@ const ContactPage = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                 </div>
 
@@ -246,7 +269,7 @@ const ContactPage = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                 </div>
 
@@ -261,7 +284,7 @@ const ContactPage = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   />
                 </div>
 
@@ -276,7 +299,7 @@ const ContactPage = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   ></textarea>
                 </div>
 
@@ -285,7 +308,7 @@ const ContactPage = () => {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full flex items-center justify-center gap-2 bg-yellow-400 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-yellow-300 transition-all duration-300 ${
+                  className={`w-full flex items-center justify-center gap-2 bg-orange-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-orange-400 transition-all duration-300 ${
                     isSubmitting ? "opacity-70 cursor-not-allowed" : ""
                   }`}
                 >
@@ -331,7 +354,7 @@ const ContactPage = () => {
             transition={{ delay: 0.5 }}
             className="mt-16 text-center"
           >
-            <h3 className="text-xl font-semibold text-yellow-400 mb-4">
+            <h3 className="text-xl font-semibold text-orange-500 mb-4">
               Siga-nos nas Redes Sociais
             </h3>
             <div className="flex justify-center space-x-8">

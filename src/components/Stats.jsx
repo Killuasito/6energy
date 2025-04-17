@@ -25,7 +25,7 @@ const Stats = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-900 border-t-2 border-t-orange-500 border-b-2 border-b-orange-500 relative overflow-hidden">
+    <section className="py-20 bg-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-20"></div>
 
       <div className="container mx-auto px-4 relative">

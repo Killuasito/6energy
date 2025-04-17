@@ -16,14 +16,14 @@ main {
 
 /* A "alça" da barra de rolagem */
 ::-webkit-scrollbar-thumb {
-  background: #ff9900;
+  background: #ff6900;
   border-radius: 5px;
   transition: all 0.3s ease;
 }
 
 /* Hover na barra de rolagem */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff9900;
+  background: #ff6900;
 }
 
 /* Canto da barra de rolagem */
@@ -34,5 +34,5 @@ main {
 /* Estilos para Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #ff9900 #1a1a1a;
+  scrollbar-color: #ff6900 #1a1a1a;
 }

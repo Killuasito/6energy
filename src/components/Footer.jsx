@@ -1,7 +1,14 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { HiOutlineLightBulb, HiOutlineCurrencyDollar } from "react-icons/hi";
+import {
+  HiOutlineLightBulb,
+  HiOutlineCurrencyDollar,
+  HiOutlineInformationCircle,
+  HiOutlineBriefcase,
+  HiOutlineShoppingBag,
+  HiOutlineMail,
+} from "react-icons/hi";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -38,13 +45,13 @@ const Footer = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo & About - Updated to use image instead of text */}
+          {/* Logo & About */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
               <img
                 src="/images/logo.png"
                 alt="6Energy"
-                className="h-24" /* Added logo image with appropriate size */
+                className="h-24"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = "../6ENERGY.webp";
@@ -62,8 +69,9 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 text-orange-500">
               Links Rápidos
             </h3>
-            <ul className="space-y-2">
-              <li>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2 group">
+                <HiOutlineInformationCircle className="text-gray-400 w-5 h-5 group-hover:text-orange-500 transition-colors" />
                 <Link
                   to="/sobre"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
@@ -71,7 +79,8 @@ const Footer = () => {
                   Sobre Nós
                 </Link>
               </li>
-              <li>
+              <li className="flex items-center gap-2 group">
+                <HiOutlineBriefcase className="text-gray-400 w-5 h-5 group-hover:text-orange-500 transition-colors" />
                 <Link
                   to="/projetos"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
@@ -79,7 +88,8 @@ const Footer = () => {
                   Projetos
                 </Link>
               </li>
-              <li>
+              <li className="flex items-center gap-2 group">
+                <HiOutlineShoppingBag className="text-gray-400 w-5 h-5 group-hover:text-orange-500 transition-colors" />
                 <Link
                   to="/produtos"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
@@ -87,7 +97,8 @@ const Footer = () => {
                   Produtos
                 </Link>
               </li>
-              <li>
+              <li className="flex items-center gap-2 group">
+                <HiOutlineMail className="text-gray-400 w-5 h-5 group-hover:text-orange-500 transition-colors" />
                 <Link
                   to="/contato"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
@@ -113,36 +124,39 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social Media */}
+          {/* Redes Sociais */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-orange-500">
               Redes Sociais
             </h3>
             <div className="flex space-x-4">
-              <a
+              <motion.a
                 href="https://www.facebook.com/6energy.iluminacao"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-500 transition-colors"
+                whileHover={{ scale: 1.1 }}
               >
                 <FaFacebook size={24} />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="https://www.instagram.com/6energy.iluminacao/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-500 transition-colors"
+                whileHover={{ scale: 1.1 }}
               >
                 <FaInstagram size={24} />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="https://br.linkedin.com/company/6-energy-iluminina%C3%A7%C3%A3o?trk=ppro_cprof"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-500 transition-colors"
+                whileHover={{ scale: 1.1 }}
               >
                 <FaLinkedin size={24} />
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>

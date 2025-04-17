@@ -147,11 +147,11 @@ const ProductPage = () => {
         >
           <div className="text-center mb-12">
             <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 bg-yellow-400/20 rounded-full flex items-center justify-center">
-                <HiOutlineLightBulb className="w-8 h-8 text-yellow-400" />
+              <div className="w-16 h-16 bg-orange-400/20 rounded-full flex items-center justify-center">
+                <HiOutlineLightBulb className="w-8 h-8 text-orange-400" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+            <h1 className="text-4xl font-bold mb-4 bg-clip-text text-orange-500">
               Nossos Produtos
             </h1>
             <p className="text-gray-300 max-w-2xl mx-auto">
@@ -168,7 +168,7 @@ const ProductPage = () => {
                 <HiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+                  className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                   placeholder="Buscar produtos..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -231,7 +231,7 @@ const ProductPage = () => {
                         key={option.value}
                         className={`w-full px-4 py-2 text-left hover:bg-gray-700 ${
                           sortOption === option.value
-                            ? "bg-gray-700 text-yellow-400"
+                            ? "bg-gray-700 text-orange-500"
                             : "text-white"
                         } flex items-center gap-2`}
                         onClick={() => {
@@ -265,7 +265,7 @@ const ProductPage = () => {
                   onClick={() => setViewMode("grid")}
                   className={`p-1.5 rounded flex items-center justify-center ${
                     viewMode === "grid"
-                      ? "bg-yellow-400 text-gray-900"
+                      ? "bg-orange-500 text-gray-900"
                       : "text-gray-300 hover:text-white"
                   }`}
                   aria-label="Grid view"
@@ -276,7 +276,7 @@ const ProductPage = () => {
                   onClick={() => setViewMode("list")}
                   className={`p-1.5 rounded flex items-center justify-center ${
                     viewMode === "list"
-                      ? "bg-yellow-400 text-gray-900"
+                      ? "bg-orange-500 text-gray-900"
                       : "text-gray-300 hover:text-white"
                   }`}
                   aria-label="List view"
@@ -301,7 +301,7 @@ const ProductPage = () => {
                 selectedCategory ||
                 sortOption !== "featured") && (
                 <button
-                  className="text-gray-300 hover:text-yellow-400 text-sm flex items-center gap-1"
+                  className="text-gray-300 hover:text-orange-500 text-sm flex items-center gap-1"
                   onClick={handleClearFilters}
                 >
                   <HiOutlineX className="w-4 h-4" />
@@ -330,7 +330,7 @@ const ProductPage = () => {
                 <div className="p-5">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                      <HiOutlineFilter className="text-yellow-400" />
+                      <HiOutlineFilter className="text-orange-500" />
                       Filtros
                     </h3>
                     <button
@@ -341,7 +341,7 @@ const ProductPage = () => {
                     </button>
                   </div>
                   <div className="mb-6">
-                    <h4 className="text-yellow-400 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <h4 className="text-orange-500 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
                       <HiOutlineTag className="w-4 h-4" />
                       Categorias
                     </h4>
@@ -351,7 +351,7 @@ const ProductPage = () => {
                           <button
                             className={`w-full text-left py-2 px-3 rounded-lg transition-colors ${
                               selectedCategory === category
-                                ? "bg-yellow-400/20 text-yellow-400"
+                                ? "bg-orange-400/20 text-orange-500"
                                 : "text-gray-300 hover:bg-gray-700/50"
                             } flex items-center gap-2`}
                             onClick={() => handleCategoryClick(category)}
@@ -371,11 +371,11 @@ const ProductPage = () => {
             {/* Category filters - Desktop (reduced width) */}
             <div className="hidden md:block w-48 bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/30 h-fit sticky top-32">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <HiOutlineFilter className="text-yellow-400" />
+                <HiOutlineFilter className="text-orange-500" />
                 Filtros
               </h3>
               <div>
-                <h4 className="text-yellow-400 text-xs uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <h4 className="text-orange-500 text-xs uppercase tracking-wider mb-3 flex items-center gap-1.5">
                   <HiOutlineTag className="w-3.5 h-3.5" />
                   Categorias
                 </h4>
@@ -385,7 +385,7 @@ const ProductPage = () => {
                       <button
                         className={`w-full text-left py-1.5 px-2.5 rounded-lg transition-colors ${
                           selectedCategory === category
-                            ? "bg-yellow-400/20 text-yellow-400"
+                            ? "bg-orange-400/20 text-orange-500"
                             : "text-gray-300 hover:bg-gray-700/50"
                         } flex items-center text-sm gap-2`}
                         onClick={() => handleCategoryClick(category)}
@@ -403,7 +403,7 @@ const ProductPage = () => {
             <div className="flex-grow">
               {loading ? (
                 <div className="flex justify-center items-center h-64">
-                  <div className="inline-block animate-spin h-8 w-8 border-4 border-yellow-400 border-t-transparent rounded-full"></div>
+                  <div className="inline-block animate-spin h-8 w-8 border-4 border-orange-500 border-t-transparent rounded-full"></div>
                 </div>
               ) : filteredProducts.length === 0 ? (
                 <div className="bg-gray-800/50 rounded-xl p-8 text-center">
@@ -414,7 +414,7 @@ const ProductPage = () => {
                     Tente ajustar seus filtros ou termos de busca.
                   </p>
                   <button
-                    className="mt-4 text-yellow-400 hover:underline flex items-center gap-1.5 mx-auto"
+                    className="mt-4 text-orange-500 hover:underline flex items-center gap-1.5 mx-auto"
                     onClick={handleClearFilters}
                   >
                     <HiOutlineX className="w-4 h-4" />
@@ -462,16 +462,16 @@ const ProductPage = () => {
                               </div>
                               <div className="p-4">
                                 <div className="mb-2">
-                                  <span className="inline-block px-2 py-0.5 rounded-full bg-gray-700/60 text-yellow-400 text-xs font-medium">
+                                  <span className="inline-block px-2 py-0.5 rounded-full bg-gray-700/60 text-orange-400 text-xs font-medium">
                                     {product.category}
                                   </span>
                                 </div>
                                 <div className="flex justify-between items-start">
-                                  <h3 className="text-lg font-semibold text-white group-hover:text-yellow-400 transition-colors line-clamp-1">
+                                  <h3 className="text-lg font-semibold text-white group-hover:text-orange-500 transition-colors line-clamp-1">
                                     {product.name}
                                   </h3>
                                   {product.price && (
-                                    <span className="text-yellow-400 font-medium text-sm">
+                                    <span className="text-orange-500 font-medium text-sm">
                                       {product.price}
                                     </span>
                                   )}
@@ -494,15 +494,15 @@ const ProductPage = () => {
                               <div className="flex-grow p-4">
                                 <div className="flex justify-between items-start">
                                   <div>
-                                    <span className="inline-block px-2 py-0.5 rounded-full bg-gray-700/60 text-yellow-400 text-xs font-medium mb-1">
+                                    <span className="inline-block px-2 py-0.5 rounded-full bg-gray-700/60 text-orange-500 text-xs font-medium mb-1">
                                       {product.category}
                                     </span>
-                                    <h3 className="text-lg font-semibold text-white group-hover:text-yellow-400 transition-colors">
+                                    <h3 className="text-lg font-semibold text-white group-hover:text-orange-500 transition-colors">
                                       {product.name}
                                     </h3>
                                   </div>
                                   {product.price && (
-                                    <span className="text-yellow-400 font-medium">
+                                    <span className="text-orange-500 font-medium">
                                       {product.price}
                                     </span>
                                   )}
@@ -511,7 +511,7 @@ const ProductPage = () => {
                                   {product.description}
                                 </p>
                                 <div className="flex justify-end mt-2">
-                                  <span className="text-yellow-400 text-sm hover:underline">
+                                  <span className="text-orange-500 text-sm hover:underline">
                                     Ver detalhes →
                                   </span>
                                 </div>

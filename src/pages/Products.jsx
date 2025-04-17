@@ -41,21 +41,35 @@ const Products = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              <div className="p-6">
-                <span className="text-orange-500 text-sm">
+              <div className="p-3">
+                {" "}
+                {/* Further reduced padding */}
+                <span className="text-orange-500 text-[10px]">
+                  {" "}
+                  {/* Further reduced font size */}
                   {product.category}
                 </span>
-                <h3 className="text-xl font-bold text-white mt-2">
+                <h3 className="text-base font-bold text-white mt-1.5">
+                  {" "}
+                  {/* Further reduced font size */}
                   {product.name}
                 </h3>
-                <p className="text-gray-400 mt-2">{product.description}</p>
-                <div className="flex items-center justify-between mt-4">
-                  <span className="text-2xl font-bold text-white">
+                <p className="text-gray-400 text-xs mt-1.5">
+                  {" "}
+                  {/* Further reduced font size */}
+                  {product.description}
+                </p>
+                <div className="flex items-center justify-between mt-2">
+                  {" "}
+                  {/* Further adjusted margin */}
+                  <span className="text-lg font-bold text-white">
+                    {" "}
+                    {/* Further reduced font size */}
                     {product.price}
                   </span>
                   <Link
                     to="/produtos"
-                    className="bg-orange-500 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors"
+                    className="bg-orange-500 text-gray-900 px-2.5 py-1 rounded-lg font-medium hover:bg-yellow-300 transition-colors"
                   >
                     Ver mais
                   </Link>
@@ -70,7 +84,7 @@ const Products = () => {
           <Link
             to="/produtos"
             className="inline-flex items-center px-8 py-3 bg-orange-500 text-gray-900 rounded-full font-semibold 
-              hover:bg-orange-300 transition-colors"
+              hover:bg-orange-00 transition-colors"
           >
             Ver todos os produtos
             <svg

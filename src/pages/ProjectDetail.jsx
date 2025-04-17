@@ -45,7 +45,7 @@ const ProjectDetail = () => {
           <div className="container mx-auto px-4">
             <Link
               to="/projetos"
-              className="inline-flex items-center text-white hover:text-yellow-400 transition-colors mb-8"
+              className="inline-flex items-center text-white hover:text-orange-500 transition-colors mb-8"
             >
               <HiOutlineArrowLeft className="mr-2" /> Voltar para Projetos
             </Link>
@@ -53,7 +53,7 @@ const ProjectDetail = () => {
               {project.title}
             </h1>
             <div className="flex items-center gap-4">
-              <span className="bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-medium">
+              <span className="bg-orange-500 text-gray-900 px-4 py-1 rounded-full text-sm font-medium">
                 {project.category}
               </span>
               <span className="text-gray-300">{project.year}</span>
@@ -72,7 +72,7 @@ const ProjectDetail = () => {
             transition={{ delay: 0.2 }}
             className="md:col-span-2"
           >
-            <h2 className="text-2xl font-bold text-yellow-400 mb-6">
+            <h2 className="text-2xl font-bold text-orange-500 mb-6">
               Sobre o Projeto
             </h2>
             <p className="text-gray-300 mb-8 leading-relaxed">
@@ -89,7 +89,7 @@ const ProjectDetail = () => {
                   transition={{ delay: 0.3 + index * 0.1 }}
                   className="flex items-start space-x-3"
                 >
-                  <HiOutlineLightBulb className="text-yellow-400 text-xl flex-shrink-0 mt-1" />
+                  <HiOutlineLightBulb className="text-orange-500 text-xl flex-shrink-0 mt-1" />
                   <span className="text-gray-300">{feature}</span>
                 </motion.div>
               ))}
@@ -97,7 +97,7 @@ const ProjectDetail = () => {
 
             {/* Image Gallery */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-yellow-400 mb-6">
+              <h2 className="text-2xl font-bold text-orange-500 mb-6">
                 Galeria
               </h2>
               <div className="grid grid-cols-3 gap-4">
@@ -107,7 +107,7 @@ const ProjectDetail = () => {
                     whileHover={{ scale: 1.05 }}
                     onClick={() => setSelectedImage(index)}
                     className={`relative rounded-lg overflow-hidden ${
-                      selectedImage === index ? "ring-2 ring-yellow-400" : ""
+                      selectedImage === index ? "ring-2 ring-orange-500" : ""
                     }`}
                   >
                     <img
@@ -130,7 +130,7 @@ const ProjectDetail = () => {
           >
             {/* Project Stats */}
             <div className="bg-gray-800/50 rounded-xl p-6 backdrop-blur-sm">
-              <h3 className="text-xl font-semibold text-yellow-400 mb-6">
+              <h3 className="text-xl font-semibold text-orange-500 mb-6">
                 Informações
               </h3>
               <div className="space-y-4">
@@ -148,19 +148,19 @@ const ProjectDetail = () => {
 
             {/* Project Details */}
             <div className="bg-gray-800/50 rounded-xl p-6 backdrop-blur-sm">
-              <h3 className="text-xl font-semibold text-yellow-400 mb-6">
+              <h3 className="text-xl font-semibold text-orange-500 mb-6">
                 Detalhes
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <HiOutlineHome className="text-yellow-400" />
+                  <HiOutlineHome className="text-orange-500" />
                   <div>
                     <p className="text-sm text-gray-400">Cliente</p>
                     <p className="text-white">{project.client}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <HiOutlineClock className="text-yellow-400" />
+                  <HiOutlineClock className="text-orange-500" />
                   <div>
                     <p className="text-sm text-gray-400">Duração</p>
                     <p className="text-white">{project.duration}</p>
@@ -174,8 +174,8 @@ const ProjectDetail = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-yellow-400 text-gray-900 py-4 px-6 rounded-xl font-semibold
-                  hover:bg-yellow-300 transition-colors"
+                className="w-full bg-orange-500 text-gray-900 py-4 px-6 rounded-xl font-semibold
+                  hover:bg-orange-400 transition-colors"
               >
                 Solicitar Orçamento
               </motion.button>

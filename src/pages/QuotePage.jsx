@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import {
   HiOutlineClipboardList,
   HiPlus,
@@ -16,7 +17,16 @@ import {
 import productsData from "../data/products.json";
 
 const QuotePage = () => {
-  const [items, setItems] = useState([{ productId: "", quantity: 1 }]);
+  const location = useLocation();
+  const preselectedProductId = location.state?.selectedProduct || "";
+
+  // Initialize with preselected product if available
+  const [items, setItems] = useState([
+    {
+      productId: preselectedProductId ? String(preselectedProductId) : "",
+      quantity: 1,
+    },
+  ]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -70,6 +80,34 @@ const QuotePage = () => {
     { value: "hospitalar", label: "Hospitalar" },
     { value: "educacional", label: "Educacional" },
   ];
+
+  // If navigating away after form submission, clear the state
+  useEffect(() => {
+    return () => {
+      // This runs when component unmounts
+      if (history.state) {
+        window.history.replaceState({}, document.title);
+      }
+    };
+  }, []);
+
+  // Optional: Scroll to products section if a product was preselected
+  useEffect(() => {
+    if (preselectedProductId) {
+      // Find the products section
+      const productsSection = document.querySelector(
+        '[data-section="products"]'
+      );
+      if (productsSection) {
+        setTimeout(() => {
+          productsSection.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }, 500);
+      }
+    }
+  }, [preselectedProductId]);
 
   if (isSubmitted) {
     return (
@@ -255,6 +293,7 @@ const QuotePage = () => {
 
             {/* Produtos */}
             <motion.div
+              data-section="products"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}

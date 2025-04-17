@@ -5,40 +5,54 @@ import {
   HiOutlineLightBulb,
   HiOutlineUsers,
   HiOutlineCog,
-  HiChartBar,
   HiDocumentText, // Changed from HiDocumentCheck
-  HiGlobe, // Changed from HiGlobeAmericas
-  HiOutlineGlobe, // Changed from HiGlobeEuropeAfrica
   HiOutlineChip, // Changed from HiCpuChip
 } from "react-icons/hi";
 
-// Define the TimelineItem component that was missing
+// Define the TimelineItem component with improved mobile styling
 const TimelineItem = ({ year, title, description, icon, inverted }) => {
   return (
     <div
-      className={`flex justify-between items-center w-full mb-12 ${
-        inverted ? "flex-row-reverse" : ""
+      className={`flex items-center w-full mb-12 flex-col md:flex-row ${
+        inverted ? "md:flex-row-reverse" : ""
       }`}
     >
-      <div className="w-5/12"></div> {/* Empty space on one side */}
+      {/* Empty space div - hidden on mobile */}
+      <div className="hidden md:block w-5/12"></div>
+
+      {/* Center connector - completely redesigned for mobile */}
       <div className="relative flex items-center justify-center">
+        {/* Icon circle */}
         <div className="h-12 w-12 rounded-full bg-gray-800 border-4 border-gray-700 flex items-center justify-center z-10">
           {icon}
         </div>
+
+        {/* Desktop horizontal connectors */}
         <div
-          className="absolute w-16 h-1 bg-gray-700"
+          className="absolute w-16 h-1 bg-gray-700 hidden md:block"
           style={{
             left: inverted ? "100%" : "auto",
             right: inverted ? "auto" : "100%",
           }}
         ></div>
+
+        {/* Mobile vertical connector - Now properly positioned */}
+        <div
+          className="absolute h-12 w-1 bg-gray-700 md:hidden"
+          style={{
+            bottom: "100%", // Connects to the element above
+            display: "block", // Ensures visibility on mobile
+          }}
+        ></div>
       </div>
+
+      {/* Content box - full width on mobile, repositioned */}
       <motion.div
-        initial={{ opacity: 0, x: inverted ? -20 : 20 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="w-5/12 bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl"
+        className="w-full mt-4 md:mt-0 md:w-5/12 bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl"
       >
         <div className="text-yellow-400 font-bold text-xl mb-1">{year}</div>
         <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
@@ -67,7 +81,7 @@ const AboutPage = () => {
     },
   ];
 
-  // Update timeline data with unique descriptions for each year
+  // Update timeline data with focus on technological advances and unique models
   const timelineData = [
     {
       year: "2015",
@@ -78,53 +92,68 @@ const AboutPage = () => {
     },
     {
       year: "2017",
-      title: "Expansão Nacional",
+      title: "Drivers de Alta Performance",
       description:
-        "Ampliamos nossa atuação para todo o território nacional, estabelecendo parcerias estratégicas com distribuidores em várias regiões do Brasil.",
-      icon: <HiChartBar className="text-yellow-400 w-6 h-6" />,
+        "Implementação de drivers de última geração com tecnologia flicker-free, proporcionando iluminação estável e confortável para os olhos, com maior durabilidade e eficiência.",
+      icon: <HiOutlineChip className="text-yellow-400 w-6 h-6" />,
     },
     {
       year: "2019",
-      title: "Certificação ISO",
+      title: "Modelos Exclusivos",
       description:
-        "Conquistamos a certificação ISO 9001, reafirmando nosso compromisso com a qualidade e excelência em todos os nossos produtos e processos.",
-      icon: <HiDocumentText className="text-yellow-400 w-6 h-6" />,
+        "Lançamento da nossa primeira linha de produtos com design diferenciado, combinando estética contemporânea com funcionalidade avançada para atender demandas específicas do mercado.",
+      icon: <HiOutlineLightBulb className="text-yellow-400 w-6 h-6" />,
     },
     {
       year: "2021",
-      title: "Linha de Produtos Sustentáveis",
+      title: "Sistemas Inteligentes",
       description:
-        "Lançamos nossa linha de produtos eco-friendly, utilizando materiais reciclados e componentes de baixo consumo energético, reforçando nosso compromisso com o meio ambiente.",
-      icon: <HiGlobe className="text-yellow-400 w-6 h-6" />,
+        "Desenvolvimento de controladores e drivers com conectividade IoT, permitindo integração com sistemas de automação e controle via aplicativos móveis para personalização completa da iluminação.",
+      icon: <HiOutlineChip className="text-yellow-400 w-6 h-6" />,
     },
     {
-      year: "2023",
-      title: "Internacionalização",
+      year: "2022",
+      title: "Linha Premium Arquitetural",
       description:
-        "Iniciamos nossa expansão para o mercado internacional, exportando nossos produtos para países da América Latina e começando operações em Portugal.",
-      icon: <HiOutlineGlobe className="text-yellow-400 w-6 h-6" />,
+        "Introdução de modelos premium com perfis de alumínio de alta resistência e designs exclusivos para projetos arquitetônicos sofisticados, elevando o padrão estético dos ambientes.",
+      icon: <HiDocumentText className="text-yellow-400 w-6 h-6" />,
     },
     {
       year: "2024",
-      title: "Inovação Tecnológica",
+      title: "Drivers de Corrente Constante",
       description:
-        "Implementamos soluções de IoT em nossos produtos, permitindo controle avançado de iluminação via aplicativos e integração com sistemas de automação residencial e comercial.",
+        "Implantação de tecnologia de drivers com corrente constante e dimmerização precisa (0-10V, DALI, DMX), garantindo operação silenciosa e maior vida útil aos LEDs em toda nossa linha de produtos.",
       icon: <HiOutlineChip className="text-yellow-400 w-6 h-6" />,
     },
   ];
 
-  // Timeline component within the AboutPage
+  // Timeline component within the AboutPage - improved for mobile
   const Timeline = () => (
     <div className="py-16 relative">
-      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700"></div>
-      {timelineData.map((item, index) => (
+      {/* Vertical timeline line - adjusted to be visible on mobile */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700 top-0"></div>
+
+      {/* First item gets special treatment for top connector */}
+      <div className="mb-12">
+        <TimelineItem
+          key={timelineData[0].year}
+          year={timelineData[0].year}
+          title={timelineData[0].title}
+          description={timelineData[0].description}
+          icon={timelineData[0].icon}
+          inverted={false}
+        />
+      </div>
+
+      {/* Rest of the timeline items */}
+      {timelineData.slice(1).map((item, index) => (
         <TimelineItem
           key={item.year}
           year={item.year}
           title={item.title}
           description={item.description}
           icon={item.icon}
-          inverted={index % 2 !== 0}
+          inverted={(index + 1) % 2 !== 0}
         />
       ))}
     </div>

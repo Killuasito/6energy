@@ -40,7 +40,7 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-orange-500">
             O Que Nossos Clientes Dizem
           </h2>
           <p className="text-gray-300 text-lg">
@@ -65,7 +65,7 @@ const Testimonials = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="text-yellow-400 font-semibold">
+                  <h4 className="text-orange-500 font-semibold">
                     {testimonial.name}
                   </h4>
                   <p className="text-gray-400 text-sm">{testimonial.role}</p>

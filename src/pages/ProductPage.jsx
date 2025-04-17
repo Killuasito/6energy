@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   HiOutlineFilter,
@@ -10,7 +10,6 @@ import {
   HiOutlineLightBulb,
   HiOutlineSortAscending,
   HiOutlineSortDescending,
-  HiOutlineHome,
   HiOutlineCube,
   HiOutlineViewGrid,
   HiOutlineOfficeBuilding,
@@ -29,6 +28,7 @@ const ProductPage = () => {
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [sortOption, setSortOption] = useState("featured");
   const [sortVisible, setSortVisible] = useState(false);
+  const [viewMode, setViewMode] = useState("grid"); // Add view mode state
 
   // Use specific categories instead of extracting from products
   const categories = [
@@ -259,6 +259,44 @@ const ProductPage = () => {
                 )}
               </div>
 
+              {/* Add View Mode Toggle */}
+              <div className="flex gap-2 bg-gray-800/50 p-1.5 rounded-lg border border-gray-700/30">
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`p-1.5 rounded flex items-center justify-center ${
+                    viewMode === "grid"
+                      ? "bg-yellow-400 text-gray-900"
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                  aria-label="Grid view"
+                >
+                  <HiOutlineViewGrid className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`p-1.5 rounded flex items-center justify-center ${
+                    viewMode === "list"
+                      ? "bg-yellow-400 text-gray-900"
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                  aria-label="List view"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                </button>
+              </div>
+
               {(searchQuery ||
                 selectedCategory ||
                 sortOption !== "featured") && (
@@ -361,7 +399,7 @@ const ProductPage = () => {
               </div>
             </div>
 
-            {/* Products Grid */}
+            {/* Products Grid/List */}
             <div className="flex-grow">
               {loading ? (
                 <div className="flex justify-center items-center h-64">
@@ -384,45 +422,107 @@ const ProductPage = () => {
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                  {filteredProducts.map((product) => (
-                    <motion.div
-                      key={product.id}
-                      whileHover={{ y: -5 }}
-                      className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700/30 hover:border-gray-600/50 transition-colors group"
-                    >
-                      <Link to={`/produtos/${product.id}`} className="block">
-                        <div className="aspect-video overflow-hidden">
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        </div>
-                        <div className="p-4">
-                          <div className="mb-2">
-                            <span className="inline-block px-2 py-0.5 rounded-full bg-gray-700/60 text-yellow-400 text-xs font-medium">
-                              {product.category}
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-start">
-                            <h3 className="text-lg font-semibold text-white group-hover:text-yellow-400 transition-colors line-clamp-1">
-                              {product.name}
-                            </h3>
-                            {product.price && (
-                              <span className="text-yellow-400 font-medium text-sm">
-                                {product.price}
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-gray-400 text-sm mt-1 line-clamp-2">
-                            {product.description}
-                          </p>
-                        </div>
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={viewMode}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className={
+                      viewMode === "grid"
+                        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+                        : "flex flex-col space-y-4"
+                    }
+                  >
+                    {filteredProducts.map((product) => (
+                      <motion.div
+                        key={product.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        whileHover={viewMode === "grid" ? { y: -5 } : {}}
+                        className={`${
+                          viewMode === "grid"
+                            ? "bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700/30 hover:border-gray-600/50 transition-colors group"
+                            : "bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700/30 hover:border-gray-600/50 transition-colors group"
+                        }`}
+                      >
+                        <Link
+                          to={`/produtos/${product.id}`}
+                          className={viewMode === "grid" ? "block" : "flex"}
+                        >
+                          {viewMode === "grid" ? (
+                            // Grid View
+                            <>
+                              <div className="aspect-video overflow-hidden">
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                              </div>
+                              <div className="p-4">
+                                <div className="mb-2">
+                                  <span className="inline-block px-2 py-0.5 rounded-full bg-gray-700/60 text-yellow-400 text-xs font-medium">
+                                    {product.category}
+                                  </span>
+                                </div>
+                                <div className="flex justify-between items-start">
+                                  <h3 className="text-lg font-semibold text-white group-hover:text-yellow-400 transition-colors line-clamp-1">
+                                    {product.name}
+                                  </h3>
+                                  {product.price && (
+                                    <span className="text-yellow-400 font-medium text-sm">
+                                      {product.price}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-gray-400 text-sm mt-1 line-clamp-2">
+                                  {product.description}
+                                </p>
+                              </div>
+                            </>
+                          ) : (
+                            // List View
+                            <>
+                              <div className="w-32 h-32 flex-shrink-0">
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              <div className="flex-grow p-4">
+                                <div className="flex justify-between items-start">
+                                  <div>
+                                    <span className="inline-block px-2 py-0.5 rounded-full bg-gray-700/60 text-yellow-400 text-xs font-medium mb-1">
+                                      {product.category}
+                                    </span>
+                                    <h3 className="text-lg font-semibold text-white group-hover:text-yellow-400 transition-colors">
+                                      {product.name}
+                                    </h3>
+                                  </div>
+                                  {product.price && (
+                                    <span className="text-yellow-400 font-medium">
+                                      {product.price}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-gray-400 text-sm mt-2">
+                                  {product.description}
+                                </p>
+                                <div className="flex justify-end mt-2">
+                                  <span className="text-yellow-400 text-sm hover:underline">
+                                    Ver detalhes →
+                                  </span>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
               )}
             </div>
           </div>

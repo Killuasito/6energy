@@ -111,7 +111,7 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
 
                     {/* Content always visible at bottom */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <span className="inline-block px-2 py-1 text-xs font-medium bg-yellow-400 text-gray-900 rounded-full mb-3">
+                      <span className="inline-block px-2 py-1 text-xs font-medium bg-orange-400 text-gray-900 rounded-full mb-3">
                         {project.category}
                       </span>
                       <h3 className="text-xl font-bold text-white mb-2">
@@ -122,12 +122,9 @@ const Projects = ({ filter = "todos", viewMode = "grid", searchTerm = "" }) => {
                           project.description.substring(0, 80) + "..."}
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-yellow-400 text-sm font-medium">
+                        <span className="text-orange-400 text-sm font-medium">
                           {project.stats[0].value}
                         </span>
-                        <button className="text-white hover:text-yellow-400 transition-colors">
-                          Ver projeto →
-                        </button>
                       </div>
                     </div>
                   </div>

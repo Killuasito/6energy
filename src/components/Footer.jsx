@@ -13,8 +13,8 @@ const Footer = () => {
         <div className="mb-12 p-8 bg-gradient-to-r from-gray-800 to-gray-800/70 rounded-xl text-center lg:text-left lg:flex items-center justify-between shadow-lg border border-gray-700/30">
           <div className="lg:max-w-xl">
             <div className="flex items-center justify-center lg:justify-start mb-4">
-              <div className="w-12 h-12 rounded-full bg-yellow-400/20 flex items-center justify-center mr-3">
-                <HiOutlineLightBulb className="w-6 h-6 text-yellow-400" />
+              <div className="w-12 h-12 rounded-full bg-orange-400/20 flex items-center justify-center mr-3">
+                <HiOutlineLightBulb className="w-6 h-6 text-orange-400" />
               </div>
               <h3 className="text-2xl font-bold text-white">
                 Pronto para transformar seu espaço?
@@ -29,7 +29,7 @@ const Footer = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/orcamento"
-              className="inline-flex items-center px-8 py-3 bg-yellow-400 text-gray-900 rounded-lg font-semibold hover:bg-yellow-300 transition-all duration-300 shadow-lg"
+              className="inline-flex items-center px-8 py-3 bg-orange-500 text-gray-900 rounded-lg font-semibold hover:bg-orange-300 transition-all duration-300 shadow-lg"
             >
               <HiOutlineCurrencyDollar className="mr-2 text-xl" />
               Solicitar Orçamento
@@ -59,14 +59,14 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-yellow-400">
+            <h3 className="text-lg font-semibold mb-4 text-orange-500">
               Links Rápidos
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/sobre"
-                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
                   Sobre Nós
                 </Link>
@@ -74,7 +74,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/projetos"
-                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
                   Projetos
                 </Link>
@@ -82,7 +82,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/produtos"
-                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
                   Produtos
                 </Link>
@@ -90,7 +90,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/contato"
-                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
                   Contato
                 </Link>
@@ -100,7 +100,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-yellow-400">
+            <h3 className="text-lg font-semibold mb-4 text-orange-500">
               Contato
             </h3>
             <ul className="space-y-2 text-gray-400">
@@ -115,7 +115,7 @@ const Footer = () => {
 
           {/* Social Media */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-yellow-400">
+            <h3 className="text-lg font-semibold mb-4 text-orange-500">
               Redes Sociais
             </h3>
             <div className="flex space-x-4">
@@ -123,7 +123,7 @@ const Footer = () => {
                 href="https://www.facebook.com/6energy.iluminacao"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
               >
                 <FaFacebook size={24} />
               </a>
@@ -131,7 +131,7 @@ const Footer = () => {
                 href="https://www.instagram.com/6energy.iluminacao/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
               >
                 <FaInstagram size={24} />
               </a>
@@ -139,7 +139,7 @@ const Footer = () => {
                 href="https://br.linkedin.com/company/6-energy-iluminina%C3%A7%C3%A3o?trk=ppro_cprof"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-yellow-400 transition-colors"
+                className="text-gray-400 hover:text-orange-500 transition-colors"
               >
                 <FaLinkedin size={24} />
               </a>

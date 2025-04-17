@@ -83,15 +83,17 @@ const ProductDetail = () => {
                 name: "Arquivo LDT",
                 description: "Dados fotométricos para projetos luminotécnicos",
                 icon: <HiOutlineDocumentReport className="w-5 h-5" />,
-                url: `/downloads/${fileBaseName}.LDT`,
-                fileName: `${foundProduct.name}.LDT`, // Changed from IES PDF to LDT
+                url: `#`,
+                fileName: `${foundProduct.name}.LDT`,
+                downloadHandler: true,
               },
               {
                 name: "Ficha Técnica",
                 description: "Especificações completas do produto",
                 icon: <HiOutlineDocumentText className="w-5 h-5" />,
-                url: `/downloads/${fileBaseName}-ficha-tecnica.pdf`,
-                fileName: `${foundProduct.name} - Ficha Técnica.pdf`, // Display name for download
+                url: `#`,
+                fileName: `${foundProduct.name} - Ficha Técnica.pdf`,
+                downloadHandler: true,
               },
             ],
           };
@@ -111,6 +113,38 @@ const ProductDetail = () => {
 
     fetchProduct();
   }, [id, navigate]);
+
+  const handleDownload = (fileName, e) => {
+    e.preventDefault();
+    // Create a blank text file with the proper name
+    const fileExtension = fileName.split(".").pop().toLowerCase();
+
+    // Create different content based on file type
+    let content = "";
+    let mimeType = "";
+
+    if (fileExtension === "ldt") {
+      content = `This is a sample LDT file for ${product.name}.\nIn a real application, this would contain photometric data.`;
+      mimeType = "text/plain";
+    } else if (fileExtension === "pdf") {
+      content = `This is a sample PDF content for ${product.name}.\nIn a real application, this would be a binary PDF file.`;
+      mimeType = "text/plain"; // In real app, would be application/pdf
+    }
+
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+
+    // Create a temporary link and click it
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Clean up the URL object
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+  };
 
   if (loading) {
     return (
@@ -268,7 +302,10 @@ const ProductDetail = () => {
                     <motion.a
                       key={index}
                       href={download.url}
-                      download={download.fileName || true} // Use custom filename if provided
+                      onClick={(e) =>
+                        download.downloadHandler &&
+                        handleDownload(download.fileName, e)
+                      }
                       className="flex items-center p-3 bg-gray-800/50 hover:bg-gray-800/80 border border-gray-700/50 rounded-lg group transition-all duration-300"
                       whileHover={{ scale: 1.02, x: 5 }}
                       whileTap={{ scale: 0.98 }}
@@ -297,6 +334,7 @@ const ProductDetail = () => {
               </span>
               <Link
                 to="/orcamento"
+                state={{ selectedProduct: product.id }} // Pass the product ID as state
                 className="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-semibold 
                   flex items-center space-x-2 hover:bg-yellow-300 transition-colors"
               >

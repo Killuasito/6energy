@@ -16,7 +16,7 @@ const Products = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-orange-500">
             Produtos em Destaque
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
@@ -42,7 +42,7 @@ const Products = () => {
                 />
               </div>
               <div className="p-6">
-                <span className="text-yellow-400 text-sm">
+                <span className="text-orange-500 text-sm">
                   {product.category}
                 </span>
                 <h3 className="text-xl font-bold text-white mt-2">
@@ -55,7 +55,7 @@ const Products = () => {
                   </span>
                   <Link
                     to="/produtos"
-                    className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors"
+                    className="bg-orange-500 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-yellow-300 transition-colors"
                   >
                     Ver mais
                   </Link>
@@ -69,8 +69,8 @@ const Products = () => {
         <div className="text-center mt-12">
           <Link
             to="/produtos"
-            className="inline-flex items-center px-8 py-3 bg-yellow-400 text-gray-900 rounded-full font-semibold 
-              hover:bg-yellow-300 transition-colors"
+            className="inline-flex items-center px-8 py-3 bg-orange-500 text-gray-900 rounded-full font-semibold 
+              hover:bg-orange-300 transition-colors"
           >
             Ver todos os produtos
             <svg

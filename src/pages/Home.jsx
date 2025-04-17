@@ -55,15 +55,15 @@ const Home = () => {
           {/* Removing the snake animation line */}
 
           <h1
-            className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent 
-            bg-gradient-to-r from-amber-500 to-amber-300 relative leading-tight"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text
+            bg-gradient-to-r text-orange-500 relative leading-tight"
           >
             Transforme Seus Espaços com Iluminação Moderna
             {/* Decorative elements */}
-            <span className="absolute -top-4 -right-4 text-yellow-400/20 text-7xl">
+            <span className="absolute -top-4 -right-4 text-orange-400/20 text-7xl">
               ✧
             </span>
-            <span className="absolute -bottom-4 -left-4 text-yellow-400/20 text-7xl">
+            <span className="absolute -bottom-4 -left-4 text-orange-400/20 text-7xl">
               ✦
             </span>
           </h1>
@@ -79,8 +79,8 @@ const Home = () => {
               href="#produtos"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full md:w-auto px-8 py-4 bg-amber-400 text-gray-900 rounded-full 
-                font-semibold hover:bg-amber-300 transition-all duration-300 text-center"
+              className="w-full md:w-auto px-8 py-4 bg-orange-500 text-gray-900 rounded-full 
+                font-semibold border hover:border-transparent hover:bg-orange-300 transition-all duration-150 text-center"
             >
               <span className="relative z-10">Explorar Produtos</span>
               <div
@@ -93,8 +93,8 @@ const Home = () => {
               href="#contato"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full md:w-auto px-8 py-4 border-2 border-amber-400 text-amber-400 
-                rounded-full font-semibold hover:bg-yellow-400/10 
+              className="w-full md:w-auto px-8 py-4 border-2 border-orange-500 text-orange-400 
+                rounded-full font-semibold hover:bg-orange-400/10 
                 transition-all duration-300 text-center"
             >
               Fale Conosco
@@ -108,13 +108,15 @@ const Home = () => {
             {
               title: "Design Exclusivo",
               description: "Peças únicas que transformam ambientes",
-              icon: <HiSparkles className="mx-auto text-amber-400" size={40} />,
+              icon: (
+                <HiSparkles className="mx-auto text-orange-500" size={40} />
+              ),
             },
             {
               title: "Economia de Energia",
               description: "Soluções eficientes e sustentáveis",
               icon: (
-                <HiLightBulb className="mx-auto text-amber-400" size={40} />
+                <HiLightBulb className="mx-auto text-orange-500" size={40} />
               ),
             },
             {
@@ -122,7 +124,7 @@ const Home = () => {
               description: "Equipe especializada à sua disposição",
               icon: (
                 <HiWrenchScrewdriver
-                  className="mx-auto text-amber-400"
+                  className="mx-auto text-orange-500"
                   size={40}
                 />
               ),
@@ -136,7 +138,7 @@ const Home = () => {
               whileHover={{ y: -5 }}
               viewport={{ once: true }}
               className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 text-center
-                border border-gray-700/50 hover:border-amber-400/50 transition-all duration-300"
+                border border-gray-700/50 hover:border-orange-500/50 transition-all duration-300"
             >
               <motion.div
                 whileHover={{ rotate: 360 }}
@@ -145,7 +147,7 @@ const Home = () => {
               >
                 {feature.icon}
               </motion.div>
-              <h3 className="text-xl font-semibold text-amber-400 mb-2">
+              <h3 className="text-xl font-semibold text-orange-500 mb-2">
                 {feature.title}
               </h3>
               <p className="text-gray-400">{feature.description}</p>
@@ -155,8 +157,8 @@ const Home = () => {
 
         {/* Scroll indicator */}
         <motion.div className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <div className="w-6 h-10 border-2 border-amber-400/50 rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-amber-400 rounded-full mt-2" />
+          <div className="w-6 h-10 border-2 border-orange-500/50 rounded-full flex justify-center">
+            <div className="w-1 h-2 bg-orange-500 rounded-full mt-2" />
           </div>
         </motion.div>
       </div>

@@ -25,7 +25,7 @@ const Stats = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-800 relative overflow-hidden">
+    <section className="py-20 bg-gray-900 border-t-2 border-t-orange-500 border-b-2 border-b-orange-500 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-20"></div>
 
       <div className="container mx-auto px-4 relative">
@@ -39,7 +39,7 @@ const Stats = () => {
               viewport={{ once: true }}
               className="flex flex-col items-center text-center"
             >
-              <div className="text-yellow-400 mb-4">{stat.icon}</div>
+              <div className="text-orange-500 mb-4">{stat.icon}</div>
               <div className="text-4xl font-bold text-white mb-2">
                 {stat.value}
               </div>

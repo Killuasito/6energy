@@ -16,7 +16,7 @@ const About = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-200">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-clip-text text-orange-500 bg-gradient-to-r">
             Nossa História
           </h2>
 
@@ -48,7 +48,7 @@ const About = () => {
               className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 space-y-6"
             >
               <div className="space-y-4">
-                <h3 className="text-2xl font-semibold text-yellow-400">
+                <h3 className="text-2xl font-semibold text-orange-500">
                   Nossa Missão
                 </h3>
                 <p className="text-gray-300">
@@ -59,7 +59,7 @@ const About = () => {
 
               <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-700">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">
+                  <div className="text-3xl font-bold text-orange-500 mb-2">
                     10
                   </div>
                   <div className="text-sm text-gray-400">
@@ -67,7 +67,7 @@ const About = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">
+                  <div className="text-3xl font-bold text-orange-500 mb-2">
                     100+
                   </div>
                   <div className="text-sm text-gray-400">

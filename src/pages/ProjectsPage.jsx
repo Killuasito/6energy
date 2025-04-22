@@ -100,7 +100,7 @@ const ProjectsPage = () => {
             Nossos Projetos
           </motion.h1>
 
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-2 ">
             {/* Search Input with Suggestions */}
             <div ref={searchRef} className="w-full md:w-auto relative">
               <div className="relative">

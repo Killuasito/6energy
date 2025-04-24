@@ -163,8 +163,8 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
           <p>
-            © {currentYear} tififerreira@gmail.com. Todos os direitos
-            reservados.
+            © {currentYear} tififerreira@gmail.com. <br></br>
+            Todos os direitos reservados.
           </p>
         </div>
       </div>

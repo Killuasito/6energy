@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   HiOutlineShoppingCart,
-  HiStar,
-  HiOutlineStar,
   HiArrowLeft,
   HiOutlineDownload,
   HiOutlineDocumentText,
